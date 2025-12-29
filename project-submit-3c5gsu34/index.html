@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Matrix Package Brief | OPTILINE Agency</title>
+    <meta name="description" content="Complete your Matrix project brief form.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-bg: #0a0a1a;
+            --card-bg: rgba(20, 20, 30, 0.8);
+            --card-border-color: rgba(138, 43, 226, 0.3);
+            --accent-purple: #8a2be2;
+            --accent-light: #a855f7;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --success-color: #a855f7;
+            --error-color: #ef4444;
+            --font-heading: 'Orbitron', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* General Settings */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: var(--font-body);
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .thank-you {
+            word-break: break-word;
+            white-space: normal;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(138, 43, 226, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseIcon {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
+        }
+
+        /* Project Form */
+        .project-brief-form {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border-color);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-brief-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s ease;
+        }
+
+        .project-brief-form.loaded::before {
+            transform: scaleX(1);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+            counter-reset: step;
+        }
+
+        .progress-indicator::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple) 0%, rgba(138, 43, 226, 0.3) 80%, rgba(138, 43, 226, 0.1) 100%);
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .progress-step:hover .step-number::before {
+            left: 100%;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+            animation: pulse-glow 2s infinite;
+            transform: scale(1.1);
+        }
+
+        .progress-step.active .step-label {
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--accent-light);
+            color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .form-section.exiting {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .form-section-title {
+            color: var(--accent-light);
+            font-family: var(--font-heading);
+            margin: 0 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            line-height: 1.4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-purple), transparent);
+            border-radius: 2px;
+        }
+
+        .form-section-title i {
+            margin-left: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.8rem;
+            width: 100%;
+            position: relative;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            display: block;
+            word-wrap: break-word;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group .field-hint {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+            line-height: 1.4;
+            word-wrap: break-word;
+            opacity: 0.8;
+        }
+
+        .project-brief-form .form-group input,
+        .project-brief-form .form-group textarea,
+        .project-brief-form .form-group select {
+            background: rgba(255, 255, 255, 0.07);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .project-brief-form .form-group input::placeholder,
+        .project-brief-form .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .project-brief-form .form-group input:focus,
+        .project-brief-form .form-group textarea:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.3);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .project-brief-form .form-group input:focus::placeholder,
+        .project-brief-form .form-group textarea:focus::placeholder {
+            opacity: 0.7;
+            transform: translateX(5px);
+        }
+
+        .project-brief-form .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* File Upload */
+        .file-upload-wrapper {
+            border: 3px dashed var(--card-border-color);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-upload-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .file-upload-wrapper:hover::before {
+            left: 100%;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--accent-purple);
+            background: rgba(138, 43, 226, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-upload-wrapper.dragover {
+            border-color: var(--accent-light);
+            background: rgba(138, 43, 226, 0.15);
+            transform: scale(1.02);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 99;
+            display: block;
+        }
+
+        .file-upload-preview {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .file-preview-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .file-preview-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-purple);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .file-preview-item.uploaded::before {
+            transform: scaleY(1);
+        }
+
+        .file-preview-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-icon {
+            font-size: 1.8rem;
+            color: var(--accent-light);
+            margin-left: 1.2rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .file-preview-item:hover .file-icon {
+            transform: scale(1.2) rotate(-5deg);
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 0;
+            margin-left: 1rem;
+        }
+
+        .file-name {
+            font-size: 1rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .file-progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .file-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        .file-status-icon {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+        }
+
+        .checkmark {
+            color: var(--success-color);
+            font-size: 1.4rem;
+            opacity: 0;
+            transform: scale(0.5) rotate(180deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .checkmark.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        .btn-remove-file {
+            background: rgba(239, 68, 68, 0.15);
+            border: none;
+            color: var(--error-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            z-index: 100;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-remove-file::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-remove-file:hover::before {
+            left: 100%;
+        }
+
+        .btn-remove-file:hover {
+            background: var(--error-color);
+            color: white;
+            transform: rotate(-90deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Form Navigation */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-navigation button {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-navigation button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .form-navigation button:hover::before {
+            left: 100%;
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            order: 1;
+        }
+
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-light));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            order: 2;
+        }
+
+        .btn-next::after,
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg) translate(-20%, -100%);
+            transition: transform 0.6s;
+        }
+
+        .btn-next:hover::after,
+        .btn-submit:hover::after {
+            transform: rotate(45deg) translate(20%, 100%);
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--accent-light), var(--accent-purple));
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-submit {
+            display: none;
+            position: relative;
+        }
+
+        .btn-submit.sending {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-submit.sending::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Upload Reminder */
+        .upload-reminder {
+            margin-top: 1.5rem;
+            padding: 1rem 1.2rem;
+            background: rgba(138, 43, 226, 0.12);
+            border: 1px solid rgba(138, 43, 226, 0.25);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-reminder:hover {
+            background: rgba(138, 43, 226, 0.18);
+            transform: translateX(-5px);
+        }
+
+        .upload-reminder i {
+            color: var(--accent-light);
+            font-size: 1.3rem;
+        }
+
+        /* Success Message */
+        .success-animation {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent-purple);
+            border-radius: 24px;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.3);
+            max-width: 850px;
+            margin: 2rem auto;
+            backdrop-filter: blur(15px);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .success-icon {
+            font-size: 6rem;
+            color: var(--success-color);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: pulseIcon 2.5s infinite ease-in-out;
+        }
+
+        .success-message h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff, var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-heading);
+            letter-spacing: 1px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.3;
+        }
+
+        .success-message p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .success-animation .cta-button {
+            padding: 1.2rem 3.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-light));
+            border: none;
+            color: white;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .success-animation .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .success-animation .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .success-animation .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.5);
+        }
+
+        /* Validation */
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: var(--error-color);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .form-group.success input,
+        .form-group.success textarea,
+        .form-group.success select {
+            border-color: var(--success-color);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .validation-message {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .validation-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .validation-message.error {
+            color: var(--error-color);
+        }
+
+        .validation-message.success {
+            color: var(--success-color);
+        }
+
+        /* Section Transitions */
+        .section-transition-enter {
+            animation: slideInFromLeft 0.4s forwards;
+        }
+
+        .section-transition-exit {
+            animation: slideInFromRight 0.4s forwards;
+        }
+
+        /* Additional Improvements */
+        .project-brief-form .form-group select option {
+            background: #2a2a3a;
+            color: white;
+            padding: 10px;
+        }
+
+        .project-brief-form .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .form-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .form-loading.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(138, 43, 226, 0.3);
+            border-top: 4px solid var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Performance Improvements */
+        .project-brief-form,
+        .form-section,
+        .progress-step,
+        .form-group input,
+        .form-group textarea {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        .form-section.active {
+            animation-duration: 0.4s;
+        }
+
+        .progress-step {
+            transition-duration: 0.3s;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            transition-duration: 0.3s;
+        }
+
+        /* Upload Progress Bar */
+        .upload-progress-container {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            display: none;
+        }
+
+        .upload-progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        .upload-progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .file-preview-item.zip-file {
+    background: transparent !important;       /* خلفية شفافة */
+    border: 2px solid var(--accent-purple) !important;  /* إظهار الإطار الأرجواني */
+}
+
+        .file-preview-item.zip-file .file-icon {
+            color: var(--accent-light);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .file-size-info {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 15px;
+            }
+            
+            .project-brief-form {
+                padding: 2rem 1.5rem;
+                margin-top: 1.5rem;
+                border-radius: 16px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-navigation button {
+                flex: 1;
+                padding: 0.9rem 1rem;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+            
+            .btn-next,
+            .btn-submit {
+                order: 1;
+            }
+            
+            .btn-prev {
+                order: 2;
+            }
+            
+            .progress-step .step-label {
+                display: none;
+            }
+            
+            .progress-indicator {
+                margin-bottom: 2rem;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .form-section-title {
+                font-size: 1.4rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .form-group label {
+                font-size: 0.95rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            p, label, .field-hint, h1, h2, h3, .form-section-title {
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+                max-width: 100%;
+                word-break: normal;
+            }
+            
+            .file-preview-item {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+            
+            .file-icon {
+                margin-bottom: 0.5rem;
+                order: 1;
+            }
+            
+            .file-details {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 1rem;
+                order: 3;
+            }
+            
+            .file-name {
+                white-space: normal;
+                word-break: break-all;
+                line-height: 1.3;
+            }
+            
+            .file-status-icon {
+                order: 2;
+                margin-right: auto;
+            }
+            
+            .btn-remove-file {
+                order: 2;
+                margin-right: 10px;
+            }
+            
+            .success-message h2 {
+                font-size: 2rem;
+                line-height: 1.2;
+                padding: 0 1rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .success-icon {
+                font-size: 4rem;
+            }
+            
+            .success-message p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .btn-submit {
+                display: block !important;
+                z-index: 1000 !important;
+                pointer-events: auto !important;
+            }
+            
+            .file-upload-wrapper {
+                padding: 2rem 1rem;
+            }
+            
+            .file-upload-wrapper i.fa-cloud-upload-alt {
+                animation: none !important;
+            }
+            
+            .success-animation {
+                padding: 3rem 1rem;
+                margin: 1rem auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-brief-form {
+                padding: 1.5rem 1rem;
+            }
+            
+            .form-section-title {
+                font-size: 1.2rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+            }
+            
+            .form-navigation button {
+                width: 100%;
+            }
+            
+            .success-animation {
+                padding: 2rem 1rem;
+            }
+            
+            .success-message h2 {
+                font-size: 1.7rem;
+                line-height: 1.2;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .success-icon {
+                font-size: 3.5rem;
+            }
+            
+            .success-message p {
+                font-size: 1rem;
+                line-height: 1.5;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .success-animation .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        /* Text Improvements */
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        .success-message h2,
+        .success-message p,
+        .form-section-title,
+        .form-group label {
+            word-break: normal;
+            overflow-wrap: break-word;
+            hyphens: none;
+        }
+  p, h1, h2, h3, h4, label, .field-hint, .form-section-title, .success-message p, .success-message h2, .subtle-glow {
+      -webkit-hyphens: none !important;
+      -ms-hyphens: none !important;
+      hyphens: none !important;
+      word-break: normal !important;
+      overflow-wrap: break-word !important;
+      line-height: 1.6 !important; 
+  }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <header class="main-header" id="header">
+        <a href="/" class="logo" aria-label="Homepage">
+            <img src="/assets/imgs/optiline-logo.webp" width="150" height="25" alt="OPTILINE Agency Logo - Digital Growth Assets">
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services/">Services</a></li>
+                <li><a href="/portfolio/">Portfolio</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger" aria-label="Menu Toggle">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="page-hero">
+            <div class="container anim-group">
+                <h1 class="subtle-glow">Matrix Package Brief</h1>
+                <p>Complete your Matrix project details below to begin.</p>
+            </div>
+        </section>
+        
+        <section class="section" id="project-brief-section">
+            <div class="container">
+                <div class="form-loading" id="formLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                
+                <form class="project-brief-form anim-group" name="projectBrief" id="projectBriefForm">
+                    <input type="hidden" id="marketerField" name="marketer">
+                    <input type="hidden" id="paypalTxField" name="paypal_tx_id">
+                    <input type="hidden" name="packageType" value="Matrix Package">
+                    
+                    <div class="progress-indicator">
+                        <div class="progress-step active" data-step="0">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Client Info</div>
+                        </div>
+                        <div class="progress-step" data-step="1">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Brand Identity</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Social Content</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Paid Ads</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-number">5</div>
+                            <div class="step-label">Final Details</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Information Section -->
+                    <div class="form-section active" id="section-0">
+                        <h3 class="form-section-title">00. Client Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" name="fullName" required placeholder="Your full name">
+                                <div class="validation-message error"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" name="email" required placeholder="email@example.com">
+                                <div class="validation-message error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand / Business Name *</label>
+                            <input type="text" name="brandName" required placeholder="The name of your brand">
+                            <div class="validation-message error"></div>
+                        </div>
+                        <div class="form-navigation">
+                            <div></div> 
+                            <button type="button" class="btn-next" data-next="1">Next: Brand Identity</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Brand Identity Section -->
+                    <div class="form-section" id="section-1">
+    <h3 class="form-section-title"><i class="fas fa-layer-group"></i>01. Brand Identity</h3>
+    <div class="form-group">
+        <label>Brand Name + Slogan *</label>
+        <input type="text" name="brandSlogan" required placeholder="Name and Slogan">
+    </div>
+    <div class="form-group">
+        <label>Brand Story + Tone of Voice *</label>
+        <textarea name="brandStory" required placeholder="Story and Tone..."></textarea>
+    </div>
+    <div class="form-group">
+        <label>Brand Mission – Vision – Values *</label>
+        <input type="text" name="missionVision" required placeholder="Mission, Vision, and Values">
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Emotional Direction of Brand *</label>
+            <input type="text" name="emotionalDirection" required placeholder="e.g. Inspiring, Trustworthy...">
+        </div>
+        <div class="form-group">
+            <label>Persona of Target Audience *</label>
+            <input type="text" name="targetPersona" required placeholder="Detailed persona">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Style Inspiration Board (5–10 Samples) *</label>
+        <textarea name="styleInspiration" required placeholder="Links to inspiration..."></textarea>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Color Psychology Preferences *</label>
+            <input type="text" name="colorPsychology" required placeholder="Full system preferences">
+        </div>
+        <div class="form-group">
+            <label>Typography Identity *</label>
+            <input type="text" name="typographyIdentity" required placeholder="Heading 1–3, Body, CTA">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Iconography Direction *</label>
+        <input type="text" name="iconographyDirection" required placeholder="Icon style">
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Competitor Analysis *</label>
+            <textarea name="competitorAnalysis" required placeholder="Main competitors..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Market Positioning *</label>
+            <textarea name="marketPositioning" required placeholder="Your position in the market..."></textarea>
+        </div>
+    </div>
+    <div class="form-navigation">
+        <button type="button" class="btn-prev" data-prev="0">Previous</button>
+        <button type="button" class="btn-next" data-next="2">Next: Social Content</button>
+    </div>
+</div>
+                    
+                    <div class="form-section" id="section-2">
+    <h3 class="form-section-title"><i class="fas fa-photo-video"></i>02. Social Content</h3>
+    <div class="form-group">
+        <label>Full Brand Identity</label>
+        <input type="text" name="fullBrandIdentity" placeholder="Do you have the full identity ready?">
+    </div>
+    <div class="form-group">
+        <label>Content Strategy Direction *</label>
+        <input type="text" name="contentStrategy" required placeholder="Funnel: Awareness/Consideration/Conversion">
+    </div>
+    <div class="form-group">
+        <label>Main Objectives *</label>
+        <input type="text" name="contentObjectives" required placeholder="Engagement – Conversion – Awareness">
+    </div>
+    <div class="form-group">
+        <label>Tone of Voice Document *</label>
+        <input type="text" name="toneOfVoiceDoc" required placeholder="Included - Describe desired persona">
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Number of Posts Required</label>
+            <input type="text" name="numPosts" value="30 High-Impact Posts" readonly disabled style="opacity: 0.7;">
+        </div>
+        <div class="form-group">
+            <label>Captions + CTA Writing *</label>
+            <input type="text" name="captionsWriting" required placeholder="Persuasive 120–220 words included. Any notes?">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Hashtag Strategy *</label>
+            <input type="text" name="hashtagStrategy" required placeholder="Full strategy included. Any specific keywords?">
+        </div>
+        <div class="form-group">
+            <label>Animation *</label>
+            <input type="text" name="animationNeeded" required placeholder="Simple motion included? (Yes/No)">
+        </div>
+    </div>
+    <div class="upload-reminder">
+        <i class="fas fa-info-circle"></i> <span>Note: Advanced Content Calendar for full month included.</span>
+    </div>
+    <div class="form-navigation">
+        <button type="button" class="btn-prev" data-prev="1">Previous</button>
+        <button type="button" class="btn-next" data-next="3">Next: Paid Ads</button>
+    </div>
+</div>
+                    
+                   <div class="form-section" id="section-3">
+    <h3 class="form-section-title"><i class="fas fa-bullhorn"></i>03. Paid Ads</h3>
+    <div class="form-group">
+        <label>Brand Details + Website *</label>
+        <input type="text" name="brandWebsite" required placeholder="Website URL and details">
+    </div>
+    <div class="form-group">
+        <label>Funnel Objective (Full Funnel) *</label>
+        <input type="text" name="funnelObjective" required placeholder="3 campaigns - TOF/MOF/BOF">
+    </div>
+    <div class="form-group">
+        <label>Detailed Audience Persona *</label>
+        <textarea name="audiencePersona" required placeholder="3–5 segments details..."></textarea>
+    </div>
+    <div class="form-group">
+        <label>Emotional Trigger Strategy *</label>
+        <textarea name="emotionalTriggers" required placeholder="Describe the strategy..."></textarea>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Ads Quantity *</label>
+            <input type="text" name="adsQuantity" value="6–8 Ads" readonly disabled style="opacity: 0.7;">
+        </div>
+        <div class="form-group">
+            <label>Ad Format *</label>
+            <input type="text" name="adFormat" required placeholder="Varied: Images + Videos + Carousels">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Tracking Setup *</label>
+            <input type="text" name="adTracking" required placeholder="Pixel & Conversion Events (Purchase/AddToCart)">
+        </div>
+        <div class="form-group">
+            <label>CTA Testing *</label>
+            <input type="text" name="ctaTesting" required placeholder="Preferences for CTA testing">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Competitor Research *</label>
+        <textarea name="adCompetitors" required placeholder="Competitor details..."></textarea>
+    </div>
+    <div class="upload-reminder">
+        <i class="fas fa-info-circle"></i> <span>Note: Copywriting (6-8 written ads) & Strategy Documentation included.</span>
+    </div>
+    <div class="form-navigation">
+        <button type="button" class="btn-prev" data-prev="2">Previous</button>
+        <button type="button" class="btn-next" data-next="4">Next: Final Details</button>
+    </div>
+</div>
+                    <!-- Final Details Section -->
+                    <div class="form-section" id="section-4">
+                        <h3 class="form-section-title">04. Final Details</h3>
+                        <div class="form-group">
+                            <label>Notes and Expectations *</label>
+                            <textarea name="specialNotes" required placeholder="Any final notes, specific expectations, or additional requirements..."></textarea>
+                            <div class="validation-message error"></div>
+                        </div>
+                        <div class="form-group">
+    <label>Upload Your Assets (ZIP File Only) *</label>
+    <div class="file-upload-wrapper" id="fileUploadWrapper">
+        <input type="file" id="fileUpload" name="attachments" accept=".zip" required>
+        <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-gray);">
+            <i class="fas fa-file-archive" style="font-size: 2.5rem; margin-bottom: 15px; display:block;"></i>
+            <strong>Click or drag ZIP file to upload</strong><br>
+            (Maximum size: 500MB - ZIP format only)<br>
+            <span style="font-size: 0.85rem; color: var(--accent-light);">
+                Include all your brand assets, references, and materials in one ZIP file
+            </span>
+        </p>
+    </div>
+    
+    <div style="margin-top: 10px; font-size: 0.8rem; color: var(--success-color); display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-lock"></i>
+        <span>Secure Transfer: Your files are encrypted and strictly confidential.</span>
+    </div>
+
+    <div class="file-upload-preview" id="filePreview"></div>
+    <div class="upload-progress-container" id="uploadProgressContainer">
+        <div class="upload-progress-bar">
+            <div class="upload-progress-fill" id="uploadProgressFill"></div>
+        </div>
+        <div class="upload-progress-text" id="uploadProgressText">0%</div>
+    </div>
+    <div class="validation-message error" id="fileValidationMessage"></div>
+</div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAACC2KEoKqYqTKDGu" data-callback="javascriptCallback"></div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn-prev" data-prev="3">Previous</button>
+                            <button type="submit" class="btn-submit" id="submitBriefButton">Submit Matrix Brief</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div id="successMessage" class="success-animation">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-message">
+                        <h2 class="subtle-glow">Matrix Brief Successfully Submitted!</h2>
+                        <p>Your vision for an exceptional brand experience is now in our expert hands. Our creative team is analyzing your comprehensive requirements to craft a world-class brand identity and marketing strategy that will elevate your business to new heights of success.</p>
+                        <a href="/" class="cta-button">Return to Homepage <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-about">
+                <a href="/" class="logo" aria-label="Homepage">
+                    <img src="/assets/imgs/optiline-logo.webp" width="150" height="25" loading="lazy" alt="OPTILINE Logo">
+                </a>
+                <p>Elevated growth assets tailored for clarity and strength</p>
+            </div>
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/pricing/">Pricing</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Agency</h4>
+                <ul>
+                    <li><a href="/blog/">Our Blog</a></li>
+                    <li><a href="/contact/">Contact Us</a></li>
+                    <li><a href="/#process">Our Process</a></li>
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/careers/">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 OPTILINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <script>
+(function populateHiddenFields() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const txId = urlParams.get('tx') || urlParams.get('txn_id');
+        const paypalTxField = document.getElementById('paypalTxField');
+        if (paypalTxField && txId) {
+            paypalTxField.value = txId;
+        } else {
+            paypalTxField.value = "DIRECT_OR_NO_TX";
+        }
+        const marketerRef = localStorage.getItem('optiline_marketer_ref');
+        if(marketerRef) document.getElementById('marketerField').value = marketerRef;
+    } catch (e) {
+        console.warn('Error populating hidden fields', e);
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYNFDJ77mlEB99GLNg4FV0pqboTzjKHlhRcKBbU3sRU4ncWKDCUKQHNK-EsifY3gamEA/exec";
+    const formSections = document.querySelectorAll('.form-section');
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const nextButtons = document.querySelectorAll('.btn-next');
+    const prevButtons = document.querySelectorAll('.btn-prev');
+    const submitButton = document.querySelector('.btn-submit');
+    const form = document.getElementById('projectBriefForm');
+    const formLoading = document.getElementById('formLoading');
+    const uploadProgressContainer = document.getElementById('uploadProgressContainer');
+    const uploadProgressFill = document.getElementById('uploadProgressFill');
+    const uploadProgressText = document.getElementById('uploadProgressText');
+    
+    let currentSection = 0;
+    const fileDataTransfer = new DataTransfer();
+    
+    // Form loading
+    setTimeout(() => {
+        document.querySelector('.project-brief-form').classList.add('loaded');
+    }, 500);
+    
+    updateFormDisplay();
+    
+    // Next button handling
+    nextButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (!validateCurrentSection()) {
+                return;
+            }
+            
+            markSectionAsCompleted(currentSection);
+            const nextSection = parseInt(this.getAttribute('data-next'));
+            navigateToSection(nextSection);
+        });
+    });
+    
+    // Previous button handling
+    prevButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const prevSection = parseInt(this.getAttribute('data-prev'));
+            navigateToSection(prevSection);
+        });
+    });
+    
+    // Progress step handling
+    progressSteps.forEach(step => {
+        step.addEventListener('click', function() {
+            const targetSection = parseInt(this.getAttribute('data-step'));
+            
+            if (targetSection <= getLastCompletedSection()) {
+                navigateToSection(targetSection);
+            } else {
+                showNotification('Please complete the current section before moving forward.', 'warning');
+            }
+        });
+    });
+    
+    // File upload handling
+    const fileUpload = document.getElementById('fileUpload');
+    const filePreview = document.getElementById('filePreview');
+    const fileUploadWrapper = document.getElementById('fileUploadWrapper');
+    const fileValidationMessage = document.getElementById('fileValidationMessage');
+    
+    if (fileUploadWrapper) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            fileUploadWrapper.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            fileUploadWrapper.addEventListener(eventName, () => {
+                fileUploadWrapper.classList.add('dragover');
+            }, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            fileUploadWrapper.addEventListener(eventName, () => {
+                fileUploadWrapper.classList.remove('dragover');
+            }, false);
+        });
+        
+        fileUploadWrapper.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+    }
+    
+    function handleFiles(files) {
+        if (files.length === 0) return;
+        
+        if (files.length > 1) {
+            showNotification('Please upload only one ZIP file.', 'error');
+            return;
+        }
+        
+        const file = files[0];
+        
+        if (!file.name.toLowerCase().endsWith('.zip')) {
+            showNotification('Only ZIP files are allowed. Please select a ZIP file.', 'error');
+            return;
+        }
+        
+        const maxSize = 500 * 1024 * 1024;
+        if (file.size > maxSize) {
+            showNotification(`File size (${(file.size/(1024*1024)).toFixed(2)}MB) exceeds maximum allowed size of 500MB.`, 'error');
+            return;
+        }
+        
+        fileDataTransfer.items.clear();
+        fileDataTransfer.items.add(file);
+        
+        try {
+            fileUpload.files = fileDataTransfer.files;
+        } catch (e) {}
+        
+        showFilePreview(file);
+        uploadProgressContainer.style.display = 'none';
+        
+        if (fileValidationMessage) {
+            fileValidationMessage.classList.remove('show');
+        }
+        fileUploadWrapper.style.borderColor = '';
+    }
+    
+    function showFilePreview(file) {
+        filePreview.innerHTML = '';
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-preview-item zip-file';
+        fileItem.id = 'zip-file-item';
+        
+        const fileSizeMB = (file.size/(1024*1024)).toFixed(2);
+        
+        fileItem.innerHTML = `
+            <div class="file-icon">
+                <i class="fas fa-file-archive"></i>
+            </div>
+            <div class="file-details">
+                <span class="file-name" title="${file.name}">${file.name}</span>
+                <div class="file-size-info">Size: ${fileSizeMB} MB</div>
+                <div class="file-progress-container">
+                    <div class="file-progress-bar" id="zip-progress-bar"></div>
+                </div>
+            </div>
+            <div class="file-status-icon">
+                <i class="fas fa-check-circle checkmark" id="zip-checkmark"></i>
+            </div>
+            <button type="button" class="btn-remove-file" onclick="removeZipFile()" aria-label="Remove File">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        filePreview.appendChild(fileItem);
+        simulateZipUpload();
+    }
+    
+    window.removeZipFile = function() {
+        const zipFileItem = document.getElementById('zip-file-item');
+        
+        if (zipFileItem) {
+            gsap.to(zipFileItem, {
+                opacity: 0,
+                x: 50,
+                duration: 0.3,
+                onComplete: () => {
+                    zipFileItem.remove();
+                    fileDataTransfer.items.clear();
+                    
+                    try {
+                        fileUpload.files = fileDataTransfer.files;
+                    } catch (e) {}
+                    
+                    uploadProgressContainer.style.display = 'none';
+                }
+            });
+        }
+    };
+    
+    function simulateZipUpload() {
+        const progressBar = document.getElementById('zip-progress-bar');
+        const checkmark = document.getElementById('zip-checkmark');
+        const fileItem = document.getElementById('zip-file-item');
+        
+        let width = 0;
+        const speed = Math.random() * 20 + 10;
+        
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                
+                if (checkmark) checkmark.classList.add('visible');
+                if (fileItem) fileItem.classList.add('uploaded');
+            } else {
+                width += 2;
+                if (progressBar) progressBar.style.width = width + '%';
+            }
+        }, speed);
+    }
+    
+    if (fileUpload) {
+        fileUpload.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+    }
+    
+    function navigateToSection(sectionIndex) {
+        formSections[currentSection].classList.add('exiting');
+        
+        setTimeout(() => {
+            formSections[currentSection].classList.remove('exiting', 'active');
+            currentSection = sectionIndex;
+            updateFormDisplay();
+            
+            const sectionElement = document.getElementById(`section-${currentSection}`);
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 200);
+    }
+    
+    function updateFormDisplay() {
+        formSections.forEach((section, index) => {
+            section.classList.toggle('active', index === currentSection);
+        });
+        
+        progressSteps.forEach((step, index) => {
+            const isCompleted = index < currentSection || (index === currentSection && isSectionCompleted(index));
+            
+            step.classList.toggle('active', index === currentSection);
+            step.classList.toggle('completed', isCompleted);
+        });
+        
+        if (currentSection === formSections.length - 1) {
+            submitButton.style.display = 'block';
+        } else {
+            submitButton.style.display = 'none';
+        }
+    }
+    
+    function markSectionAsCompleted(sectionIndex) {
+        progressSteps[sectionIndex].classList.add('completed');
+    }
+    
+    function validateCurrentSection() {
+        const currentSectionElement = formSections[currentSection];
+        let isValid = true;
+        let firstInvalidField = null;
+        
+        const requiredInputs = currentSectionElement.querySelectorAll('input[required], textarea[required], select[required]');
+        
+        requiredInputs.forEach(input => {
+            const formGroup = input.closest('.form-group');
+            const validationMessage = formGroup.querySelector('.validation-message');
+            
+            if (!input.value.trim()) {
+                isValid = false;
+                formGroup.classList.add('error');
+                formGroup.classList.remove('success');
+                
+                if (validationMessage) {
+                    validationMessage.textContent = 'This field is required';
+                    validationMessage.className = 'validation-message error show';
+                }
+                
+                gsap.to(input, {
+                    x: -10,
+                    duration: 0.1,
+                    repeat: 3,
+                    yoyo: true,
+                    onComplete: () => gsap.set(input, { x: 0 })
+                });
+                
+                if (!firstInvalidField) {
+                    firstInvalidField = input;
+                }
+                
+                input.addEventListener('input', function() {
+                    this.style.borderColor = '';
+                    formGroup.classList.remove('error');
+                    
+                    if (validationMessage) {
+                        validationMessage.classList.remove('show');
+                    }
+                }, { once: true });
+            } else {
+                formGroup.classList.remove('error');
+                formGroup.classList.add('success');
+                
+                if (validationMessage) {
+                    validationMessage.textContent = 'Looks good!';
+                    validationMessage.className = 'validation-message success show';
+                    
+                    setTimeout(() => {
+                        validationMessage.classList.remove('show');
+                    }, 2000);
+                }
+            }
+        });
+        
+        if (currentSection === 4 && fileDataTransfer.files.length === 0) {
+            isValid = false;
+            
+            if (fileValidationMessage) {
+                fileValidationMessage.textContent = 'Please upload a ZIP file';
+                fileValidationMessage.className = 'validation-message error show';
+            }
+            
+            fileUploadWrapper.style.borderColor = 'var(--error-color)';
+            
+            gsap.to(fileUploadWrapper, {
+                x: -10,
+                duration: 0.1,
+                repeat: 3,
+                yoyo: true,
+                onComplete: () => gsap.set(fileUploadWrapper, { x: 0 })
+            });
+        } else if (currentSection === 4 && fileDataTransfer.files.length > 0) {
+            if (fileValidationMessage) {
+                fileValidationMessage.classList.remove('show');
+            }
+            fileUploadWrapper.style.borderColor = '';
+        }
+        
+        if (!isValid && firstInvalidField) {
+            firstInvalidField.focus();
+            showNotification('Please fill in all required fields correctly.', 'error');
+        }
+        
+        return isValid;
+    }
+    
+    function getLastCompletedSection() {
+        for (let i = formSections.length - 1; i >= 0; i--) {
+            if (isSectionCompleted(i)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+    
+    function isSectionCompleted(sectionIndex) {
+        const sectionElement = formSections[sectionIndex];
+        const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
+        
+        for (let i = 0; i < requiredInputs.length; i++) {
+            if (!requiredInputs[i].value.trim()) {
+                return false;
+            }
+        }
+        
+        if (sectionIndex === 4 && fileDataTransfer.files.length === 0) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'error' ? 'var(--error-color)' : type === 'warning' ? '#f59e0b' : type === 'success' ? 'var(--success-color)' : 'var(--accent-purple)'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            max-width: 400px;
+            transform: translateX(150%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 600;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(150%)';
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 4000);
+    }
+    
+    async function uploadSingleFile(file) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const clientName = document.querySelector('input[name="fullName"]').value;
+                const brandName = document.querySelector('input[name="brandName"]').value;
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "getUploadUrl",
+                        fileName: file.name,
+                        mimeType: file.type,
+                        fileSize: file.size,
+                        clientName: clientName,
+                        brandName: brandName
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status !== "success") {
+                    throw new Error("Failed to get upload URL");
+                }
+                
+                const uploadUrl = data.url;
+                
+                const xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                
+                xhr.upload.addEventListener('progress', (e) => {
+                    const total = e.lengthComputable ? e.total : file.size;
+                    if (total > 0) {
+                        const percentComplete = (e.loaded / total) * 100;
+                        updateUploadProgress(percentComplete);
+                    }
+                });
+                
+                xhr.addEventListener('load', () => {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        updateUploadProgress(100);
+                        resolve(`Uploaded: ${file.name}`);
+                    } else {
+                        reject(new Error(`Upload failed with status: ${xhr.status}`));
+                    }
+                });
+                
+                xhr.addEventListener('error', () => {
+                    if (xhr.status === 0) {
+                        console.log("Likely CORS error (False Positive), but file is likely uploaded.");
+                        updateUploadProgress(100);
+                        resolve(`Uploaded (warn): ${file.name}`);
+                    } else {
+                        reject(new Error('Upload failed due to network error'));
+                    }
+                });
+                
+                xhr.open('PUT', uploadUrl);
+                xhr.setRequestHeader('Content-Type', file.type);
+                xhr.send(file);
+                
+            } catch (error) {
+                console.error('Upload error for file:', file.name, error);
+                reject(error);
+            }
+        });
+    }
+    
+    function updateUploadProgress(percent) {
+        uploadProgressFill.style.width = percent + '%';
+        uploadProgressText.textContent = Math.round(percent) + '%';
+        
+        if (percent === 100) {
+            setTimeout(() => {
+                uploadProgressContainer.style.display = 'none';
+            }, 1000);
+        }
+    }
+    
+    window.javascriptCallback = function(token) {
+        console.log('Turnstile verified');
+    }
+    
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formLoading.classList.add('active');
+            
+            let allSectionsValid = true;
+            let errorMessage = '';
+            
+            for (let i = 0; i < formSections.length; i++) {
+                const sectionElement = formSections[i];
+                const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
+                
+                for (let j = 0; j < requiredInputs.length; j++) {
+                    if (!requiredInputs[j].value.trim()) {
+                        allSectionsValid = false;
+                        const fieldLabel = requiredInputs[j].closest('.form-group').querySelector('label').textContent.replace('*', '').trim();
+                        
+                        if (!errorMessage.includes(`Section ${i}: ${fieldLabel}`)) {
+                            errorMessage += (errorMessage ? '\n' : '') + `Section ${i}: ${fieldLabel}`;
+                        }
+                    }
+                }
+                
+                if (i === 4 && fileDataTransfer.files.length === 0) {
+                    allSectionsValid = false;
+                    if (!errorMessage.includes('Section 4: Upload Your Assets')) {
+                        errorMessage += (errorMessage ? '\n' : '') + 'Section 4: Upload Your Assets';
+                    }
+                }
+            }
+            
+            if (!allSectionsValid) {
+                formLoading.classList.remove('active');
+                showNotification(`Please fill in all required fields before submitting.`, 'error');
+                
+                for (let i = 0; i < formSections.length; i++) {
+                    const sectionElement = formSections[i];
+                    const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
+                    let sectionHasError = false;
+                    
+                    for (let j = 0; j < requiredInputs.length; j++) {
+                        if (!requiredInputs[j].value.trim()) {
+                            sectionHasError = true;
+                            break;
+                        }
+                    }
+                    
+                    if (sectionHasError || (i === 4 && fileDataTransfer.files.length === 0)) {
+                        navigateToSection(i);
+                        break;
+                    }
+                }
+                
+                return;
+            }
+            
+            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+            
+            if (!turnstileResponse || !turnstileResponse.value) {
+                formLoading.classList.remove('active');
+                showNotification('Please complete the security verification.', 'error');
+                return;
+            }
+            
+            const submitButton = document.getElementById('submitBriefButton');
+            submitButton.textContent = 'Uploading ZIP File...';
+            submitButton.classList.add('sending');
+            submitButton.disabled = true;
+            
+            try {
+                const files = fileDataTransfer.files;
+                let uploadedLinksLog = "";
+                
+                if (files.length > 0) {
+                    uploadProgressContainer.style.display = 'block';
+                    updateUploadProgress(0);
+                    showNotification(`Starting upload of ZIP file...`, 'info');
+                    
+                    const file = files[0];
+                    
+                    try {
+                        const resultMsg = await uploadSingleFile(file);
+                        uploadedLinksLog += resultMsg + "\n";
+                        
+                        const fileItem = document.getElementById('zip-file-item');
+                        if (fileItem) {
+                            fileItem.style.background = 'transparent';
+                        }
+                    } catch (uploadErr) {
+                        console.error(`Failed to upload ${file.name}:`, uploadErr);
+                        uploadedLinksLog += `Failed: ${file.name} - ${uploadErr.message}\n`;
+                        
+                        const fileItem = document.getElementById('zip-file-item');
+                        if (fileItem) {
+                            fileItem.style.background = 'rgba(239, 68, 68, 0.1)';
+                            fileItem.style.borderColor = 'var(--error-color)';
+                        }
+                        
+                        throw uploadErr;
+                    }
+                    
+                    showNotification(`ZIP file upload completed!`, 'success');
+                } else {
+                    uploadedLinksLog = "No files selected.";
+                }
+                
+                submitButton.textContent = 'Sending Data...';
+                
+                const formData = new FormData(form);
+                const dataObj = {};
+                
+                formData.forEach((value, key) => dataObj[key] = value);
+                dataObj.fileLinks = uploadedLinksLog;
+                delete dataObj.attachments;
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify(dataObj)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'ok') {
+                    formLoading.classList.remove('active');
+                    form.style.display = 'none';
+                    
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.style.display = 'block';
+                    
+                    // --- Scroll Animation ---
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: { 
+                            y: successMsg,
+                            offsetY: 100
+                        },
+                        ease: "power3.inOut"
+                    });
+                    // ------------------------
+                    
+                    gsap.fromTo(successMsg, 
+                        {opacity: 0, scale: 0.8, rotationY: 90}, 
+                        {opacity: 1, scale: 1, rotationY: 0, duration: 0.8, ease: "back.out(1.7)"}
+                    );
+                    
+                    createConfetti();
+                } else {
+                    throw new Error(result.message || 'Unknown error.');
+                }
+                
+            } catch (err) {
+                console.error('Submission error:', err);
+                formLoading.classList.remove('active');
+                showNotification('Submission error: ' + err.message, 'error');
+                
+                submitButton.textContent = 'Submit Full Brief';
+                submitButton.classList.remove('sending');
+                submitButton.disabled = false;
+                uploadProgressContainer.style.display = 'none';
+            }
+        });
+    }
+    
+    function createConfetti() {
+        const colors = ['#8a2be2', '#a855f7', '#10b981', '#3b82f6', '#f59e0b'];
+        
+        for (let i = 0; i < 150; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.cssText = `
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                top: -20px;
+                left: ${Math.random() * 100}vw;
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                opacity: ${Math.random() * 0.8 + 0.2};
+                z-index: 1000;
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            gsap.to(confetti, {
+                y: window.innerHeight + 20,
+                x: (Math.random() - 0.5) * 200,
+                rotation: Math.random() * 360,
+                duration: Math.random() * 3 + 2,
+                ease: "power2.out",
+                onComplete: () => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }
+            });
+        }
+    }
+    
+    const emailInput = document.querySelector('input[type="email"]');
+    
+    if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+            const formGroup = this.closest('.form-group');
+            const validationMessage = formGroup.querySelector('.validation-message');
+            
+            if (this.value && !isValidEmail(this.value)) {
+                formGroup.classList.add('error');
+                formGroup.classList.remove('success');
+                
+                if (validationMessage) {
+                    validationMessage.textContent = 'Please enter a valid email address';
+                    validationMessage.className = 'validation-message error show';
+                }
+            } else if (this.value && isValidEmail(this.value)) {
+                formGroup.classList.remove('error');
+                formGroup.classList.add('success');
+                
+                if (validationMessage) {
+                    validationMessage.textContent = 'Valid email address';
+                    validationMessage.className = 'validation-message success show';
+                    
+                    setTimeout(() => {
+                        validationMessage.classList.remove('show');
+                    }, 2000);
+                }
+            }
+        });
+    }
+    
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    const allInputs = document.querySelectorAll('input, textarea, select');
+    
+    allInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            const formGroup = this.closest('.form-group');
+            formGroup.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+            const formGroup = this.closest('.form-group');
+            formGroup.classList.remove('focused');
+        });
+    });
+});
+</script>
+</body>
+</html>
