@@ -586,7 +586,7 @@ function setupScriptProperties() {
   const scriptProperties = PropertiesService.getScriptProperties();
   
   // PayPal Webhook ID (تحصل عليه من PayPal Dashboard)
-  scriptProperties.setProperty('PAYPAL_WEBHOOK_ID', 'YOUR_WEBHOOK_ID_HERE');
+  scriptProperties.setProperty('PAYPAL_WEBHOOK_ID', '9X929011UU766335T');
   
   // Turnstile Secret Key (موجود مسبقاً)
   // scriptProperties.setProperty('TURNSTILE_SECRET_KEY', 'your_turnstile_key');
