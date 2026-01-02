@@ -1,5 +1,6 @@
 /**
  * assets/js/payment.js
+ * OPTILINE PAYMENT CLIENT - V3 (Marketer Tracking & Overlay)
  */
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -36,26 +37,32 @@ const UI = {
     success: () => document.getElementById('success-state'),
     
     showProcessing: function() {
-        if(this.overlay()) this.overlay().classList.add('active');
-        if(this.loading()) this.loading().style.display = 'block';
-        if(this.success()) this.success().style.display = 'none';
+        const overlay = this.overlay();
+        if(overlay) overlay.classList.add('active');
+        const loading = this.loading();
+        if(loading) loading.style.display = 'block';
+        const success = this.success();
+        if(success) success.style.display = 'none';
     },
     
     showSuccess: function() {
-        if(this.loading()) this.loading().style.display = 'none';
-        if(this.success()) this.success().style.display = 'block';
+        const loading = this.loading();
+        if(loading) loading.style.display = 'none';
+        const success = this.success();
+        if(success) success.style.display = 'block';
         const checkmark = document.querySelector('.success-checkmark');
         if(checkmark) checkmark.classList.add('animate-check');
     },
     
     hide: function() {
-        if(this.overlay()) this.overlay().classList.remove('active');
+        const overlay = this.overlay();
+        if(overlay) overlay.classList.remove('active');
     }
 };
 
 // الدالة الرئيسية
 function initPayPalButton(config) {
-    // ضع رابط الويب آب الجديد هنا
+    // رابط السكريبت الخاص بك (تأكد أنه آخر إصدار قمت بنشره)
     const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWNsRWtnGwvE66VpDOeishxk6jGRT6oJ6Qup73vgHI7mjbMvPPQoTAFcdeHC9CD-_RJQ/exec";
 
     if (!window.paypal) {
@@ -83,29 +90,33 @@ function initPayPalButton(config) {
 
             return actions.order.capture().then(function(details) {
                 
+                // استخراج المسوق من الكوكيز لإرساله مع الدفع
+                const marketerRef = (function() {
+                    const getCookie = (name) => {
+                        const v = `; ${document.cookie}`;
+                        const p = v.split(`; ${name}=`);
+                        if (p.length === 2) return p.pop().split(';').shift();
+                        return null;
+                    };
+                    return getCookie('optiline_marketer_ref') || localStorage.getItem('optiline_marketer_ref') || '';
+                })();
+
+                console.log("Sending Payment with Marketer:", marketerRef);
+
                 fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
                         event_type: "PAYMENT.CAPTURE.COMPLETED",
-                        // ... داخل fetch body ...
-resource: {
-    id: details.id,
-    amount: { value: config.price },
-    payer: details.payer,
-    package: config.packageName,
-    // نقرأ من الكوكيز أولاً، ثم اللوكال ستوريج، وإلا نفرض قيمة فارغة
-    marketer: (function() {
-        const getCookie = (name) => {
-            const v = `; ${document.cookie}`;
-            const p = v.split(`; ${name}=`);
-            if (p.length === 2) return p.pop().split(';').shift();
-            return null;
-        };
-        return getCookie('optiline_marketer_ref') || localStorage.getItem('optiline_marketer_ref') || '';
-    })()
-}
-// ...
+                        resource: {
+                            id: details.id,
+                            amount: { value: config.price },
+                            payer: details.payer,
+                            package: config.packageName,
+                            marketer: marketerRef // إرسال المسوق هنا
+                        }
+                    })
+                })
                 .then(response => response.json())
                 .then(serverData => {
                     if (serverData.status === 'success' && serverData.url) {
