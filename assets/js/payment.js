@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     
     // إعدادات الويب هوك الخاص بك (استبدل الرابط برابط Apps Script)
-    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby7gLcf4CWhllMBeYmJsNMaL51psDy5Iud-FvFR-GAfw3P5S2NeJ-dkVxtUMJWPuPci/exec";
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxE0w-rl55yWUMNWgUUk6PPXZRFpSE8XhvlQGQb1daXrKBoMlCdthbFKSbd1CvW9kQB/exec";
 
     // تعريف الباقات وأسعارها (يجب أن تطابق ما في موقعك)
     const packages = [
