@@ -6023,1032 +6023,267 @@ img.icon, .icon img {
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-
 /* =========================================
-   CHECKOUT PAGES STYLES (ADD TO END OF STYLE.CSS)
+   CHECKOUT PAGES STYLES (UNIFIED)
    ========================================= */
 
-/* 1. ضبط الصفحة والهيدر */
-.checkout-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--primary-dark);
+/* 1. تصغير الهيدر في صفحات الدفع */
+.checkout-page-header {
+    padding: 6px 5% !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    background: rgba(10, 4, 26, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid var(--card-border-color) !important;
 }
 
-/* تعديل الهيدر ليطابق الموقع ولكن بخلفية ثابتة */
-.checkout-page .main-header {
-    background-color: rgba(10, 4, 26, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+.checkout-page-header .logo img {
+    height: 20px !important;
+    width: auto !important;
 }
 
-.checkout-main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 140px; /* مسافة لتعويض الهيدر */
-    padding-bottom: 80px;
-    position: relative;
-    width: 100%;
-}
-
-/* 2. الخلفية المتحركة (Blobs) */
-.checkout-bg-decoration {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.bg-blob {
+/* 2. زر العودة النحيف */
+.slim-back-link {
     position: absolute;
-    filter: blur(90px);
-    opacity: 0.35;
-    border-radius: 50%;
-    animation: blobFloat 12s infinite alternate ease-in-out;
-}
-
-@keyframes blobFloat {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(40px, -40px) scale(1.1); }
-}
-
-/* ألوان الخلفية لكل باقة */
-.theme-core .bg-blob-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: #4f46e5; }
-.theme-core .bg-blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #8b5cf6; }
-
-.theme-nexus .bg-blob-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: #06b6d4; }
-.theme-nexus .bg-blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #3b82f6; }
-
-.theme-matrix .bg-blob-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: #db2777; }
-.theme-matrix .bg-blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #7c3aed; }
-
-/* 3. بطاقة الدفع الزجاجية */
-.checkout-card {
-    background: rgba(20, 20, 35, 0.65);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
-    padding: 3.5rem 3rem;
-    width: 90%;
-    max-width: 550px;
-    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.6);
-    position: relative;
-    overflow: hidden;
-    opacity: 0; /* مخفي للأنيميشن */
-    transform: translateY(40px);
-}
-
-.checkout-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.7);
-    border-color: rgba(255, 255, 255, 0.15);
-}
-
-/* ألوان الحدود حسب الباقة */
-.theme-core .checkout-card { border-top: 4px solid #8b5cf6; }
-.theme-nexus .checkout-card { border-top: 4px solid #06b6d4; }
-.theme-matrix .checkout-card { border-top: 4px solid #db2777; }
-
-/* 4. النصوص والمحتوى */
-.checkout-header { text-align: center; margin-bottom: 2.5rem; }
-
-.pack-title {
-    font-family: var(--font-heading);
-    color: #fff;
-    font-size: 2.2rem;
-    margin-bottom: 0.8rem;
-    letter-spacing: 1px;
-}
-
-.pack-subtitle { color: var(--text-gray); font-size: 1rem; font-weight: 400; }
-
-.summary-box {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    padding: 1.8rem;
-    margin-bottom: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.summary-item {
-    display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;
-    color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;
-    opacity: 0; /* للأنيميشن */
-    transform: translateX(-15px);
-}
-
-.summary-item i { margin-top: 4px; font-size: 1rem; }
-
-/* ألوان العناصر */
-.theme-core .summary-item i { color: #a78bfa; }
-.theme-nexus .summary-item i { color: #22d3ee; }
-.theme-matrix .summary-item i { color: #f472b6; }
-
-.total-row {
-    margin-top: 1.5rem; padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex; justify-content: space-between; align-items: center;
-}
-
-.total-label { font-size: 1.1rem; color: #fff; font-weight: 600; }
-
-.total-price { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; }
-
-.theme-core .total-price { color: #a78bfa; text-shadow: 0 0 20px rgba(167, 139, 250, 0.4); }
-.theme-nexus .total-price { color: #22d3ee; text-shadow: 0 0 20px rgba(34, 211, 238, 0.4); }
-.theme-matrix .total-price { color: #f472b6; text-shadow: 0 0 20px rgba(244, 114, 182, 0.4); }
-
-.back-nav-link {
-    color: var(--text-gray); font-size: 0.95rem; font-weight: 500;
-    text-decoration: none; display: flex; align-items: center; gap: 8px;
-    transition: color 0.3s ease;
-}
-.back-nav-link:hover { color: #fff; }
-
-.secure-badge {
-    text-align: center; margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;
-    display: flex; justify-content: center; align-items: center; gap: 8px; opacity: 0.8;
-}
-
-@media (max-width: 768px) {
-    .checkout-card { padding: 2rem 1.5rem; width: 95%; }
-    .pack-title { font-size: 1.8rem; }
-    .checkout-main { padding-top: 120px; }
-}
-/* =========================================
-   CHECKOUT PAGE UNIFIED STYLES
-   ========================================= */
-
-/* 1. إعداد الصفحة والخلفية */
-.checkout-page {
-    position: relative;
-    min-height: 100vh;
-    background-color: var(--primary-dark);
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-}
-
-.checkout-main {
-    flex: 1;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--card-border-color);
+    color: var(--text-gray);
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-top: 120px; /* مسافة لتعويض الهيدر */
-    padding-bottom: 50px;
-    position: relative;
-    z-index: 2;
+    gap: 8px;
+    transition: all var(--transition-fast);
+    z-index: 1001;
+    height: 36px;
+    line-height: 1;
 }
 
-/* استخدام نفس كلاس النقاط الطافية من الصفحة الرئيسية ولكن بتعديل التموضع */
-.checkout-page .hero-floating-dots {
-    position: fixed; /* ثابتة لتغطي الشاشة كاملة */
+.slim-back-link:hover {
+    border-color: var(--accent-light);
+    color: var(--accent-light);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+}
+
+.slim-back-link i {
+    transition: transform var(--transition-fast);
+}
+
+.slim-back-link:hover i {
+    transform: translateX(-3px);
+}
+
+/* 3. البطاقة الرئيسية مع انبثاق وظل */
+.checkout-main-card {
+    background: rgba(18, 8, 47, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 500px;
+    width: 100%;
+    margin: 2rem auto;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(138, 43, 226, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    animation: cardFloat 6s ease-in-out infinite;
+    transform: translateY(0);
+}
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.checkout-main-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(164, 94, 255, 0.1) 0%, transparent 70%);
+    animation: rotateSlow 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 4. النقاط الطافية البنفسجية (مثل الصفحة الرئيسية) */
+.checkout-floating-dots {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
     pointer-events: none;
-}
-
-/* 2. الهيدر الموحد لصفحات الدفع */
-.checkout-header-nav {
-    justify-content: space-between !important; /* توزيع العناصر */
-    padding: 10px 5%;
-}
-
-/* زر "Change Package" في الإطار */
-.checkout-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 25px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--accent-purple); /* الإطار البنفسجي */
-    border-radius: 50px;
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-}
-
-.checkout-back-btn:hover {
-    background: var(--accent-purple);
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
-    transform: translateY(-2px);
-}
-
-.checkout-back-btn i {
-    transition: transform 0.3s ease;
-}
-
-/* تحريك السهم عند التمرير */
-.checkout-back-btn:hover i {
-    transform: translateX(-5px); /* يتحرك لليسار لأنه سهم عودة */
-}
-
-/* 3. بطاقة الدفع (تصميم موحد للجميع) */
-.checkout-card {
-    background: rgba(20, 20, 35, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(138, 43, 226, 0.3); /* توحيد لون الحدود */
-    border-radius: 24px;
-    padding: 3rem;
-    width: 90%;
-    max-width: 550px;
-    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.5);
-    position: relative;
     overflow: hidden;
-    opacity: 0; /* للأنيميشن */
-    transform: translateY(30px);
 }
 
-.checkout-card:hover {
-    border-color: var(--accent-light);
-    box-shadow: 0 40px 80px -15px rgba(138, 43, 226, 0.2);
+.checkout-floating-dots .dot {
+    position: absolute;
+    background-color: var(--accent-purple);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: liquidFloat ease-in-out infinite alternate;
 }
 
-/* العناوين والألوان الموحدة */
-.pack-title {
-    font-family: var(--font-heading);
-    color: #fff;
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5); /* توهج بنفسجي موحد */
+.checkout-floating-dots .dot:nth-child(1) {
+    left: 10%; top: 20%;
+    width: 15px; height: 15px;
+    animation-duration: 8s;
 }
 
-.pack-subtitle {
-    text-align: center;
-    color: var(--text-gray);
-    margin-bottom: 2rem;
-    font-size: 1rem;
+.checkout-floating-dots .dot:nth-child(2) {
+    left: 80%; top: 30%;
+    width: 25px; height: 25px;
+    animation-duration: 10s;
 }
 
-.summary-box {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(138, 43, 226, 0.1);
+.checkout-floating-dots .dot:nth-child(3) {
+    left: 20%; top: 70%;
+    width: 10px; height: 10px;
+    animation-duration: 7s;
 }
 
-.summary-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 15px;
-    color: #e2e8f0;
-    font-size: 0.95rem;
-    opacity: 0;
-    transform: translateX(-15px);
+.checkout-floating-dots .dot:nth-child(4) {
+    left: 70%; top: 80%;
+    width: 20px; height: 20px;
+    animation-duration: 9s;
 }
 
-.summary-item i {
-    color: var(--accent-light); /* توحيد لون الأيقونات */
-    margin-top: 5px;
+.checkout-floating-dots .dot:nth-child(5) {
+    left: 40%; top: 40%;
+    width: 12px; height: 12px;
+    animation-duration: 6s;
 }
 
-.total-row {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.total-label { font-weight: 600; color: #fff; }
-.total-price {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--accent-light);
-    text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-}
-
-/* شارة الأمان */
-.secure-badge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    color: var(--text-gray);
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-}
-.secure-badge i { color: var(--accent-light); }
-
-@media (max-width: 768px) {
-    .checkout-card { padding: 2rem 1.5rem; }
-    .pack-title { font-size: 1.8rem; }
-}
-/* =========================================
-   CHECKOUT PAGE UNIFIED STYLES (FINAL VERSION)
-   ========================================= */
-
-/* 1. إعداد الصفحة والخلفية */
-.checkout-page {
-    position: relative;
-    min-height: 100vh;
-    background-color: var(--primary-dark);
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-}
-
-.checkout-main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 100px; /* تقليل المسافة العلوية لتناسب الهيدر الأنحف */
-    padding-bottom: 50px;
+/* 5. محتوى البطاقة */
+.checkout-content {
     position: relative;
     z-index: 2;
 }
 
-/* نقاط الخلفية الطافية (نفس الصفحة الرئيسية) */
-.checkout-page .hero-floating-dots {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* 2. الهيدر الموحد (النسخة النحيفة) */
-.checkout-header-nav {
-    justify-content: space-between !important;
-    padding: 8px 5% !important; /* تقليل الحشوة ليصبح الهيدر أنحف */
-    height: 60px; /* تحديد ارتفاع ثابت ونحيف */
-    align-items: center;
-}
-
-/* 3. زر "Change Package" (أنحف وأطول) */
-.checkout-back-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px; /* زيادة المسافة بين الأيقونة والنص */
-    
-    /* التعديلات المطلوبة: أنحف وأطول */
-    padding: 6px 35px; /* تقليل الارتفاع (6px) وزيادة العرض (35px) */
-    
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--accent-purple);
-    border-radius: 50px;
-    color: #fff;
-    font-size: 0.85rem; /* تصغير الخط قليلاً ليناسب الزر النحيف */
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px; /* زيادة التباعد ليعطي شعوراً بالعرض */
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-    height: 36px; /* ارتفاع ثابت للزر */
-}
-
-.checkout-back-btn:hover {
-    background: var(--accent-purple);
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
-    transform: translateY(-1px);
-    padding-right: 40px; /* حركة تمدد بسيطة عند التمرير */
-}
-
-.checkout-back-btn i {
-    transition: transform 0.3s ease;
-    font-size: 0.8rem;
-}
-
-.checkout-back-btn:hover i {
-    transform: translateX(-5px);
-}
-
-/* 4. بطاقة الدفع الموحدة */
-.checkout-card {
-    background: rgba(20, 20, 35, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(138, 43, 226, 0.3);
-    border-radius: 24px;
-    padding: 3rem;
-    width: 90%;
-    max-width: 550px;
-    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.checkout-card:hover {
-    border-color: var(--accent-light);
-    box-shadow: 0 40px 80px -15px rgba(138, 43, 226, 0.2);
-}
-
-/* تنسيقات النصوص */
-.pack-title {
-    font-family: var(--font-heading);
-    color: #fff;
+.checkout-title {
     font-size: 2.2rem;
-    margin-bottom: 0.5rem;
+    color: var(--text-light);
     text-align: center;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.pack-subtitle {
-    text-align: center;
+.checkout-subtitle {
     color: var(--text-gray);
-    margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
     font-size: 1rem;
 }
 
-.summary-box {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(138, 43, 226, 0.1);
+/* 6. قائمة المميزات */
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
 }
 
-.summary-item {
+.features-list li {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
-    margin-bottom: 15px;
-    color: #e2e8f0;
+    margin-bottom: 1.2rem;
+    color: var(--text-light);
     font-size: 0.95rem;
-    opacity: 0;
-    transform: translateX(-15px);
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent-light);
 }
 
-.summary-item i {
+.features-list li i {
     color: var(--accent-light);
-    margin-top: 5px;
+    font-size: 1.1rem;
+    min-width: 24px;
 }
 
-.total-row {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.features-list li strong {
+    color: var(--accent-light);
+    margin-right: 5px;
 }
 
-.total-label { font-weight: 600; color: #fff; }
-.total-price {
+/* 7. سعر الباقة */
+.package-price {
+    display: block;
+    text-align: center;
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 3rem;
     color: var(--accent-light);
-    text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+    margin: 2rem 0;
+    text-shadow: 0 0 20px rgba(164, 94, 255, 0.3);
+    font-weight: 900;
 }
 
-.secure-badge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
+/* 8. زر PayPal */
+.paypal-container {
+    margin: 2rem 0;
+    position: relative;
+    z-index: 10;
+    min-height: 150px;
+}
+
+/* 9. شعار الأمان */
+.security-badge {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(138, 43, 226, 0.2);
     color: var(--text-gray);
     font-size: 0.85rem;
-    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
-.secure-badge i { color: var(--accent-light); }
 
+.security-badge i {
+    color: var(--accent-light);
+}
+
+/* 10. تحسينات للجوال */
 @media (max-width: 768px) {
-    .checkout-card { padding: 2rem 1.5rem; }
-    .pack-title { font-size: 1.8rem; }
-    /* تعديل الهيدر للجوال */
-    .checkout-header-nav { padding: 10px 5% !important; height: auto; }
-}
-/* =========================================
-   ENHANCED CHECKOUT PAGES - UNIFIED & MOBILE RESPONSIVE
-   ========================================= */
-
-/* 1. الهيدر الموحد للنظام الجديد */
-.checkout-header-nav {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    z-index: 1000 !important;
-    padding: 8px 5% !important;
-    height: 60px !important;
-    min-height: 60px !important;
-    max-height: 60px !important;
-    background-color: rgba(10, 4, 26, 0.95) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.15) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    transition: all 0.3s ease !important;
-}
-
-/* حالة التمرير */
-.checkout-header-nav.scrolled {
-    background-color: rgba(10, 4, 26, 0.98) !important;
-    backdrop-filter: blur(25px) !important;
-    -webkit-backdrop-filter: blur(25px) !important;
-}
-
-/* 2. زر Change Package المحسن */
-.checkout-back-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    
-    /* الأبعاد الجديدة: أطول وأقل ارتفاعاً */
-    padding: 4px 35px !important;
-    height: 38px !important;
-    min-width: 170px !important;
-    max-width: 200px !important;
-    
-    /* التصميم الزجاجي الموحد */
-    background: rgba(138, 43, 226, 0.15) !important;
-    border: 1.5px solid rgba(138, 43, 226, 0.4) !important;
-    border-radius: 50px !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    
-    /* النصوص */
-    color: var(--text-light) !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1.8px !important;
-    font-family: var(--font-main) !important;
-    text-decoration: none !important;
-    
-    /* الانتقالات السلسة */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-    
-    /* الظلال */
-    box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-}
-
-/* تأثير التمرير (للسطحات الكبيرة فقط) */
-@media (hover: hover) {
-    .checkout-back-btn:hover {
-        background: rgba(138, 43, 226, 0.25) !important;
-        border-color: var(--accent-light) !important;
-        box-shadow: 
-            0 8px 25px rgba(138, 43, 226, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-        transform: translateY(-2px) !important;
-        padding-right: 40px !important;
-        letter-spacing: 2px !important;
+    .checkout-main-card {
+        padding: 2rem 1.5rem;
+        margin: 1rem auto;
+        border-radius: 15px;
     }
     
-    .checkout-back-btn:hover i {
-        transform: translateX(-5px) !important;
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
-    }
-}
-
-/* السهم داخل الزر */
-.checkout-back-btn i {
-    transition: all 0.3s ease !important;
-    font-size: 0.85rem !important;
-    color: var(--accent-light) !important;
-}
-
-/* 3. خلفية النقاط الطافية (نفس الصفحة الرئيسية) */
-.checkout-page .hero-floating-dots {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    z-index: 0 !important;
-    pointer-events: none !important;
-    overflow: hidden !important;
-}
-
-/* تنسيق النقاط */
-.checkout-page .hero-floating-dots .dot {
-    position: absolute !important;
-    background-color: var(--accent-purple) !important;
-    border-radius: 50% !important;
-    opacity: var(--dot-opacity, 0.1) !important;
-    animation: liquidFloat ease-in-out infinite alternate !important;
-    filter: blur(0.5px) !important;
-}
-
-/* توزيع النقاط (نفس الصفحة الرئيسية) */
-.checkout-page .hero-floating-dots .dot:nth-child(1) {
-    left: 10% !important; top: 20% !important;
-    width: 15px !important; height: 15px !important;
-    animation-duration: 5s !important;
-    --dot-opacity: 0.15 !important;
-}
-.checkout-page .hero-floating-dots .dot:nth-child(2) {
-    left: 20% !important; top: 80% !important;
-    width: 25px !important; height: 25px !important;
-    animation-duration: 7s !important;
-    --dot-opacity: 0.1 !important;
-}
-.checkout-page .hero-floating-dots .dot:nth-child(3) {
-    left: 35% !important; top: 40% !important;
-    width: 10px !important; height: 10px !important;
-    animation-duration: 4.5s !important;
-    --dot-opacity: 0.2 !important;
-}
-.checkout-page .hero-floating-dots .dot:nth-child(4) {
-    left: 55% !important; top: 15% !important;
-    width: 20px !important; height: 20px !important;
-    animation-duration: 6s !important;
-    --dot-opacity: 0.08 !important;
-}
-.checkout-page .hero-floating-dots .dot:nth-child(5) {
-    left: 65% !important; top: 60% !important;
-    width: 15px !important; height: 15px !important;
-    animation-duration: 5.5s !important;
-    --dot-opacity: 0.15 !important;
-}
-.checkout-page .hero-floating-dots .dot:nth-child(6) {
-    left: 80% !important; top: 25% !important;
-    width: 12px !important; height: 12px !important;
-    animation-duration: 4s !important;
-    --dot-opacity: 0.12 !important;
-}
-
-/* 4. الصفحة الرئيسية للدخول */
-.checkout-page {
-    position: relative !important;
-    min-height: 100vh !important;
-    background-color: var(--primary-dark) !important;
-    overflow-x: hidden !important;
-}
-
-.checkout-main {
-    padding-top: 100px !important;
-    padding-bottom: 50px !important;
-    min-height: calc(100vh - 60px) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    position: relative !important;
-    z-index: 2 !important;
-}
-
-/* 5. بطاقة الدفع المحسنة */
-.checkout-card {
-    background: rgba(18, 8, 47, 0.75) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(138, 43, 226, 0.25) !important;
-    border-radius: 20px !important;
-    padding: 2.5rem 2rem !important;
-    width: 92% !important;
-    max-width: 500px !important;
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 50px rgba(138, 43, 226, 0.1) !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    z-index: 2 !important;
-}
-
-/* العناوين */
-.pack-title {
-    font-family: var(--font-heading) !important;
-    color: var(--text-light) !important;
-    font-size: 2.2rem !important;
-    margin-bottom: 0.5rem !important;
-    text-align: center !important;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5) !important;
-}
-
-.pack-subtitle {
-    text-align: center !important;
-    color: var(--text-gray) !important;
-    margin-bottom: 2rem !important;
-    font-size: 1rem !important;
-}
-
-/* صندوق الملخص */
-.summary-box {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border-radius: 16px !important;
-    padding: 2rem !important;
-    margin-bottom: 2rem !important;
-    border: 1px solid rgba(138, 43, 226, 0.1) !important;
-}
-
-.summary-item {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 15px !important;
-    margin-bottom: 15px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.95rem !important;
-}
-
-.summary-item i {
-    color: var(--accent-light) !important;
-    margin-top: 5px !important;
-    flex-shrink: 0 !important;
-}
-
-/* الصف الإجمالي */
-.total-row {
-    margin-top: 1.5rem !important;
-    padding-top: 1.5rem !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-}
-
-.total-label {
-    font-weight: 600 !important;
-    color: var(--text-light) !important;
-}
-
-.total-price {
-    font-family: var(--font-heading) !important;
-    font-size: 1.8rem !important;
-    color: var(--accent-light) !important;
-    text-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important;
-}
-
-/* شارة الأمان */
-.secure-badge {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 10px !important;
-    margin-top: 1.5rem !important;
-    color: var(--text-gray) !important;
-    font-size: 0.85rem !important;
-    letter-spacing: 1px !important;
-}
-
-.secure-badge i {
-    color: var(--accent-light) !important;
-}
-
-/* =========================================
-   MOBILE RESPONSIVE ENHANCEMENTS
-   ========================================= */
-
-/* الجوال (أقل من 768px) */
-@media (max-width: 768px) {
-    /* 1. الهيدر للجوال */
-    .checkout-header-nav {
-        height: 55px !important;
-        min-height: 55px !important;
-        max-height: 55px !important;
-        padding: 6px 4% !important;
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(15px) !important;
+    .checkout-title {
+        font-size: 1.8rem;
     }
     
-    /* 2. الزر للجوال */
-    .checkout-back-btn {
-        padding: 4px 20px !important;
-        height: 34px !important;
-        min-width: 140px !important;
-        max-width: 160px !important;
-        font-size: 0.75rem !important;
-        letter-spacing: 1.2px !important;
-        gap: 8px !important;
-        border-width: 1px !important;
+    .package-price {
+        font-size: 2.5rem;
     }
     
-    .checkout-back-btn i {
-        font-size: 0.75rem !important;
+    .slim-back-link {
+        padding: 6px 15px;
+        font-size: 0.8rem;
+        right: 15px;
     }
     
-    /* تأثير اللمس */
-    .checkout-back-btn:active {
-        background: rgba(138, 43, 226, 0.25) !important;
-        border-color: var(--accent-purple) !important;
-        transform: translateY(1px) !important;
-        box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-        transition: all 0.1s ease !important;
-    }
-    
-    /* 3. الصفحة الرئيسية */
-    .checkout-main {
-        padding-top: 75px !important;
-        padding-bottom: 30px !important;
-    }
-    
-    /* 4. البطاقة للجوال */
-    .checkout-card {
-        padding: 1.8rem 1.2rem !important;
-        border-radius: 16px !important;
-        width: 95% !important;
-        margin: 10px auto !important;
-        border-width: 1px !important;
-    }
-    
-    /* 5. النصوص للجوال */
-    .pack-title {
-        font-size: 1.7rem !important;
-        margin-bottom: 0.4rem !important;
-    }
-    
-    .pack-subtitle {
-        font-size: 0.9rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
-    .summary-box {
-        padding: 1.2rem !important;
-        border-radius: 12px !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
-    .summary-item {
-        font-size: 0.85rem !important;
-        margin-bottom: 12px !important;
-        gap: 12px !important;
-    }
-    
-    .summary-item i {
-        font-size: 0.9rem !important;
-    }
-    
-    .total-row {
-        margin-top: 1rem !important;
-        padding-top: 1rem !important;
-    }
-    
-    .total-label {
-        font-size: 0.95rem !important;
-    }
-    
-    .total-price {
-        font-size: 1.5rem !important;
-    }
-    
-    /* 6. تعديل النقاط الطافية للجوال */
-    .checkout-page .hero-floating-dots .dot {
-        animation-duration: calc(var(--duration, 5s) * 1.3) !important;
-        opacity: calc(var(--dot-opacity) * 0.8) !important;
-    }
-    
-    /* تقليل عدد النقاط في الجوال لتحسين الأداء */
-    .checkout-page .hero-floating-dots .dot:nth-child(n+5) {
-        display: none !important;
-    }
-}
-
-/* الشاشات الصغيرة جداً (أقل من 480px) */
-@media (max-width: 480px) {
-    /* 1. الهيدر */
-    .checkout-header-nav {
-        height: 50px !important;
-        min-height: 50px !important;
-        max-height: 50px !important;
-        padding: 5px 3% !important;
-    }
-    
-    /* 2. الزر */
-    .checkout-back-btn {
-        padding: 3px 15px !important;
-        height: 32px !important;
-        min-width: 120px !important;
-        max-width: 140px !important;
-        font-size: 0.7rem !important;
-        letter-spacing: 1px !important;
-        gap: 6px !important;
-    }
-    
-    .checkout-back-btn i {
-        font-size: 0.7rem !important;
-    }
-    
-    /* 3. البطاقة */
-    .checkout-card {
-        padding: 1.5rem 1rem !important;
-        border-radius: 14px !important;
-        width: 98% !important;
-        margin: 5px auto !important;
-    }
-    
-    /* 4. النصوص */
-    .pack-title {
-        font-size: 1.5rem !important;
-    }
-    
-    .pack-subtitle {
-        font-size: 0.85rem !important;
-        margin-bottom: 1.2rem !important;
-    }
-    
-    .summary-box {
-        padding: 1rem !important;
-    }
-    
-    .summary-item {
-        font-size: 0.8rem !important;
-        margin-bottom: 10px !important;
-        gap: 10px !important;
-    }
-    
-    .total-price {
-        font-size: 1.3rem !important;
-    }
-    
-    .secure-badge {
-        font-size: 0.75rem !important;
-        gap: 6px !important;
-        margin-top: 15px !important;
-    }
-    
-    /* 5. زر PayPal */
-    [id^="paypal-button-"] {
-        min-height: 120px !important;
-        margin: 1rem 0 !important;
-    }
-    
-    /* 6. تقليل النقاط الطافية أكثر */
-    .checkout-page .hero-floating-dots .dot:nth-child(n+4) {
-        display: none !important;
-    }
-}
-
-/* التابلت (بين 769px و 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .checkout-card {
-        max-width: 550px !important;
-        padding: 3rem 2.5rem !important;
-    }
-    
-    .checkout-back-btn {
-        padding: 5px 28px !important;
-        min-width: 160px !important;
-    }
-}
-
-/* تحسينات خاصة للجوال (لمس فقط) */
-@media (hover: none) and (pointer: coarse) {
-    .checkout-back-btn {
-        min-height: 44px !important;
-    }
-    
-    .checkout-card:hover {
-        transform: none !important;
-        box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.4),
-            0 0 50px rgba(138, 43, 226, 0.1) !important;
-    }
-}
-
-/* منع التكبير التلقائي في حقول الإدخال على الجوال */
-@media (max-width: 768px) {
-    .checkout-card input,
-    .checkout-card select,
-    .checkout-card textarea {
-        font-size: 16px !important;
-    }
-}
-
-/* تحسين الأداء للجوال */
-@media (max-width: 768px) {
-    .checkout-page .hero-floating-dots {
-        /* تقليل عدد النقاط لتحسين الأداء */
-        --dot-count: 4;
-    }
-    
-    .checkout-card {
-        backdrop-filter: blur(10px) !important;
-    }
-}
-
-/* دعم الوضع الداكن */
-@media (prefers-color-scheme: dark) {
-    .checkout-card {
-        background: rgba(10, 4, 26, 0.85) !important;
-        border-color: rgba(138, 43, 226, 0.3) !important;
-    }
-    
-    .checkout-back-btn {
-        background: rgba(138, 43, 226, 0.2) !important;
-        border-color: rgba(164, 94, 255, 0.4) !important;
+    .features-list li {
+        font-size: 0.9rem;
+        padding: 0.7rem;
     }
 }
