@@ -142,3 +142,33 @@ function initPayPalButton(config) {
         }
     }).render('#' + config.containerId);
 }
+/* assets/js/payment.js - Updated */
+
+document.addEventListener("DOMContentLoaded", function() {
+    // البحث عن حاوية الدفع التي تحتوي على بيانات الباقة
+    const paymentContainer = document.querySelector('[data-payment-container]');
+
+    if (paymentContainer) {
+        // استخراج البيانات من الـ HTML
+        const containerId = paymentContainer.id;
+        const price = paymentContainer.getAttribute('data-price');
+        const packageName = paymentContainer.getAttribute('data-package-name');
+
+        // ننتظر قليلاً لضمان تحميل مكتبة PayPal
+        setTimeout(function() {
+            if (typeof initPayPalButton === 'function') {
+                console.log(`Initializing Payment for: ${packageName}`);
+                initPayPalButton({
+                    containerId: containerId,
+                    price: price,
+                    packageName: packageName
+                });
+            } else {
+                console.error("PayPal SDK not loaded or initPayPalButton missing.");
+            }
+        }, 800);
+    }
+});
+
+// (أبقِ دالة initPayPalButton الموجودة لديك مسبقاً كما هي هنا)
+// تأكد أن دالة initPayPalButton معرفة في هذا الملف أو ملف سابق
