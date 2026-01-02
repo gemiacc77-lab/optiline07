@@ -1,28 +1,50 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // إعدادات الويب هوك الخاص بك (استبدل الرابط برابط Apps Script)
-    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxE0w-rl55yWUMNWgUUk6PPXZRFpSE8XhvlQGQb1daXrKBoMlCdthbFKSbd1CvW9kQB/exec";
+    // إعدادات الويب هوك الخاص بك (لإرسال إشعار البيع للشيت الرئيسي)
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWNsRWtnGwvE66VpDOeishxk6jGRT6oJ6Qup73vgHI7mjbMvPPQoTAFcdeHC9CD-_RJQ/exec";
 
-    // تعريف الباقات وأسعارها (يجب أن تطابق ما في موقعك)
+    /**
+     * تعريف الباقات والروابط السرية
+     * هنا نضع رابط صفحة المشروع المخصصة لكل باقة داخل المتغير returnUrl
+     * هذه الروابط لن تظهر للمستخدم إلا بعد الدفع
+     */
     const packages = [
-        { id: 'paypal-button-core', price: '699', name: 'CORE PACK' },
-        { id: 'paypal-button-nexus', price: '1299', name: 'NEXUS PACK' },
-        { id: 'paypal-button-matrix', price: '1699', name: 'MATRIX PACK' }
+        { 
+            id: 'paypal-button-core', 
+            price: '699', 
+            name: 'CORE PACK',
+            // رابط صفحة مشروع الكور
+            returnUrl: '/project-submit-1a91z7p/' 
+        },
+        { 
+            id: 'paypal-button-nexus', 
+            price: '1299', 
+            name: 'NEXUS PACK',
+            // رابط صفحة مشروع نكستس
+            returnUrl: '/project-submit-2bgf5xedSt/' 
+        },
+        { 
+            id: 'paypal-button-matrix', 
+            price: '1699', 
+            name: 'MATRIX PACK',
+            // رابط صفحة مشروع ماتريكس
+            returnUrl: '/project-submit-3c5gsu34/' 
+        }
     ];
 
     // دالة لإنشاء الأزرار تلقائياً
     packages.forEach(pkg => {
-        // نتأكد أن العنصر موجود في الصفحة قبل محاولة رسم الزر
+        // نتأكد أن العنصر موجود في الصفحة الحالية قبل محاولة رسم الزر
         if (document.getElementById(pkg.id)) {
-            renderPayPalButton(pkg.id, pkg.price, pkg.name);
+            renderPayPalButton(pkg.id, pkg.price, pkg.name, pkg.returnUrl);
         }
     });
 
-    function renderPayPalButton(containerId, price, packageName) {
+    function renderPayPalButton(containerId, price, packageName, returnUrl) {
         paypal.Buttons({
             style: {
                 shape: 'rect',
-                color: 'blue', // أو 'gold', 'black', 'white'
+                color: 'blue', 
                 layout: 'vertical',
                 label: 'pay',
             },
@@ -37,20 +59,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             },
             onApprove: function(data, actions) {
+                // إظهار مؤشر تحميل أو رسالة انتظار ليعرف العميل أن العملية قيد المعالجة
+                // (اختياري: يمكنك إضافة كود هنا لتغيير نص الزر إلى "Processing...")
+                
                 return actions.order.capture().then(function(details) {
                     
-                    // إظهار رسالة نجاح فورية (يمكنك تحسينها لاحقاً)
-                    alert('Payment Successful! Thank you, ' + details.payer.name.given_name);
-
-                    // إرسال البيانات إلى Google Sheets في الخلفية
+                    // 1. إرسال البيانات إلى Google Sheets (Verified Sales) في الخلفية
                     fetch(WEBHOOK_URL, {
                         method: 'POST',
-                        mode: 'no-cors', // مهم جداً لتجنب مشاكل المتصفح
+                        mode: 'no-cors',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            event_type: "PAYMENT.CAPTURE.COMPLETED", // محاكاة لحدث الويب هوك
+                            event_type: "PAYMENT.CAPTURE.COMPLETED",
                             resource: {
                                 id: details.id,
                                 amount: { value: price },
@@ -63,8 +85,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         })
                     }).then(() => {
                         console.log("Data sent to Optiline System");
-                        // توجيه لصفحة الشكر (اختياري)
-                        // window.location.href = "/thank-you.html";
+                        
+                        // 2. التوجيه لصفحة المشروع السرية بعد نجاح الدفع والحفظ
+                        // نقوم بتمرير رقم العملية (tx) في الرابط لأن صفحة المشروع تحتاجه
+                        window.location.href = returnUrl + "?tx=" + details.id;
+                        
+                    }).catch(err => {
+                        console.error("Webhook Error", err);
+                        // حتى لو فشل الويب هوك، نقوم بتوجيه العميل لصفحة المشروع لكي لا يضيع
+                        window.location.href = returnUrl + "?tx=" + details.id;
                     });
                 });
             },
