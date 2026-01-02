@@ -6535,3 +6535,442 @@ img.icon, .icon img {
     /* تعديل الهيدر للجوال */
     .checkout-header-nav { padding: 10px 5% !important; height: auto; }
 }
+/* =========================================
+   ENHANCED CHECKOUT HEADER & BACKGROUND (MOBILE RESPONSIVE)
+   ========================================= */
+
+/* 1. الهيدر النحيف والاستجابة للجوال */
+.checkout-header-nav {
+    justify-content: space-between !important;
+    padding: 8px 5% !important;
+    height: 60px;
+    background-color: rgba(10, 4, 26, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.15) !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+}
+
+/* 2. زر Change Package المحسن مع استجابة للجوال */
+.checkout-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    /* الأبعاد الأساسية */
+    padding: 5px 30px !important;
+    height: 40px;
+    min-width: 160px;
+    
+    /* التصميم الزجاجي */
+    background: rgba(138, 43, 226, 0.15) !important;
+    border: 1.5px solid rgba(138, 43, 226, 0.4) !important;
+    border-radius: 50px !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    
+    /* النصوص */
+    color: var(--text-light) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    font-family: var(--font-main) !important;
+    text-decoration: none !important;
+    
+    /* الانتقالات */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    
+    /* الظلال */
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* تأثير التمرير - ديسكتوب فقط */
+@media (hover: hover) and (pointer: fine) {
+    .checkout-back-btn:hover {
+        background: rgba(138, 43, 226, 0.3) !important;
+        border-color: var(--accent-light) !important;
+        box-shadow: 
+            0 8px 25px rgba(138, 43, 226, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-2px) scale(1.02) !important;
+        padding-right: 35px !important;
+        letter-spacing: 1.8px !important;
+    }
+    
+    .checkout-back-btn:hover i {
+        transform: translateX(-5px) rotate(-10deg) !important;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+    }
+}
+
+/* تأثير اللمس - للجوال */
+.checkout-back-btn:active {
+    background: rgba(138, 43, 226, 0.25) !important;
+    border-color: var(--accent-purple) !important;
+    transform: translateY(1px) scale(0.98) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    transition: all 0.1s ease !important;
+}
+
+/* السهم */
+.checkout-back-btn i {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+    font-size: 0.85rem !important;
+    color: var(--accent-light) !important;
+}
+
+/* 3. خلفية النقاط الطافية للجوال */
+.checkout-page .hero-floating-dots {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.checkout-page .hero-floating-dots .dot {
+    position: absolute;
+    background-color: var(--accent-purple);
+    border-radius: 50%;
+    opacity: var(--dot-opacity, 0.1);
+    animation: liquidFloat ease-in-out infinite alternate;
+    filter: blur(0.5px);
+}
+
+/* توزيع النقاط للجوال */
+.checkout-page .hero-floating-dots .dot:nth-child(1) {
+    left: 5%; top: 15%;
+    width: 8px; height: 8px;
+    animation-duration: 6s;
+    --dot-opacity: 0.1;
+}
+.checkout-page .hero-floating-dots .dot:nth-child(2) {
+    left: 15%; top: 85%;
+    width: 12px; height: 12px;
+    animation-duration: 8s;
+    --dot-opacity: 0.08;
+}
+.checkout-page .hero-floating-dots .dot:nth-child(3) {
+    left: 30%; top: 35%;
+    width: 6px; height: 6px;
+    animation-duration: 5s;
+    --dot-opacity: 0.12;
+}
+.checkout-page .hero-floating-dots .dot:nth-child(4) {
+    left: 50%; top: 10%;
+    width: 10px; height: 10px;
+    animation-duration: 7s;
+    --dot-opacity: 0.07;
+}
+.checkout-page .hero-floating-dots .dot:nth-child(5) {
+    left: 60%; top: 65%;
+    width: 8px; height: 8px;
+    animation-duration: 6.5s;
+    --dot-opacity: 0.1;
+}
+.checkout-page .hero-floating-dots .dot:nth-child(6) {
+    left: 75%; top: 20%;
+    width: 7px; height: 7px;
+    animation-duration: 5.5s;
+    --dot-opacity: 0.09;
+}
+
+/* حركة النقاط المعدلة للجوال */
+@keyframes liquidFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: calc(var(--dot-opacity) * 0.8);
+    }
+    50% {
+        transform: translate(15px, -20px) scale(1.05);
+        opacity: var(--dot-opacity);
+    }
+    100% {
+        transform: translate(-10px, -30px) scale(0.95);
+        opacity: calc(var(--dot-opacity) * 0.7);
+    }
+}
+
+/* 4. تحسينات البطاقة للجوال */
+.checkout-card {
+    background: rgba(18, 8, 47, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.25);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    width: 92%;
+    max-width: 500px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(138, 43, 226, 0.1);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.checkout-main {
+    padding-top: 80px !important;
+    padding-bottom: 40px;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE ENHANCEMENTS
+   ========================================= */
+
+/* الجوال (أقل من 768px) */
+@media (max-width: 768px) {
+    /* 1. الهيدر للجوال */
+    .checkout-header-nav {
+        height: 55px;
+        padding: 6px 4% !important;
+        backdrop-filter: blur(15px) !important;
+    }
+    
+    /* 2. زر Change Package للجوال */
+    .checkout-back-btn {
+        padding: 4px 20px !important;
+        height: 36px;
+        min-width: 140px;
+        font-size: 0.75rem !important;
+        letter-spacing: 1.2px !important;
+        gap: 8px;
+        border-width: 1px !important;
+    }
+    
+    .checkout-back-btn i {
+        font-size: 0.75rem !important;
+    }
+    
+    /* 3. البطاقة للجوال */
+    .checkout-card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 16px;
+        width: 95%;
+        margin: 10px auto;
+        border-width: 1px;
+    }
+    
+    .checkout-main {
+        padding-top: 70px !important;
+        padding-bottom: 30px;
+    }
+    
+    /* 4. النصوص للجوال */
+    .pack-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 0.4rem;
+    }
+    
+    .pack-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .summary-box {
+        padding: 1.2rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .summary-item {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+        gap: 12px;
+    }
+    
+    .summary-item i {
+        font-size: 0.9rem;
+    }
+    
+    .total-row {
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+    
+    .total-label {
+        font-size: 0.95rem;
+    }
+    
+    .total-price {
+        font-size: 1.5rem;
+    }
+    
+    /* 5. تعديل النقاط الطافية للجوال */
+    .checkout-page .hero-floating-dots .dot {
+        animation-duration: calc(var(--duration, 5s) * 1.2);
+    }
+    
+    /* تقليل عدد النقاط في الجوال لتحسين الأداء */
+    .checkout-page .hero-floating-dots .dot:nth-child(n+5) {
+        display: none;
+    }
+}
+
+/* الشاشات الصغيرة جداً (أقل من 480px) */
+@media (max-width: 480px) {
+    /* 1. الهيدر */
+    .checkout-header-nav {
+        height: 50px;
+        padding: 5px 3% !important;
+    }
+    
+    /* 2. الزر */
+    .checkout-back-btn {
+        padding: 3px 15px !important;
+        height: 32px;
+        min-width: 120px;
+        font-size: 0.7rem !important;
+        letter-spacing: 1px !important;
+        gap: 6px;
+    }
+    
+    .checkout-back-btn i {
+        font-size: 0.7rem !important;
+    }
+    
+    /* 3. البطاقة */
+    .checkout-card {
+        padding: 1.5rem 1rem;
+        border-radius: 14px;
+        width: 98%;
+        margin: 5px auto;
+    }
+    
+    /* 4. النصوص */
+    .pack-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .pack-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .summary-box {
+        padding: 1rem;
+    }
+    
+    .summary-item {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+    
+    .total-price {
+        font-size: 1.3rem;
+    }
+    
+    .secure-badge {
+        font-size: 0.75rem;
+        gap: 6px;
+        margin-top: 15px;
+    }
+    
+    /* 5. زر PayPal */
+    #paypal-button-core,
+    #paypal-button-nexus,
+    #paypal-button-matrix {
+        min-height: 120px !important;
+        margin: 1rem 0;
+    }
+    
+    /* 6. تعديل النقاط الطافية */
+    .checkout-page .hero-floating-dots .dot {
+        animation-duration: calc(var(--duration, 5s) * 1.5);
+        opacity: calc(var(--dot-opacity) * 0.8);
+    }
+    
+    /* إخفاء المزيد من النقاط */
+    .checkout-page .hero-floating-dots .dot:nth-child(n+4) {
+        display: none;
+    }
+}
+
+/* التابلت (بين 769px و 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .checkout-card {
+        max-width: 600px;
+        padding: 3rem 2.5rem;
+    }
+    
+    .checkout-back-btn {
+        padding: 6px 25px !important;
+        min-width: 170px;
+    }
+}
+
+/* تحسينات اللمس للجوال */
+@media (hover: none) and (pointer: coarse) {
+    .checkout-back-btn {
+        /* زيادة منطقة اللمس */
+        min-height: 44px;
+        padding: 8px 25px !important;
+    }
+    
+    /* إزالة تأثيرات الهوفر غير الضرورية */
+    .checkout-card:hover {
+        transform: none;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* تحسين تجربة اللمس للنقاط */
+    .checkout-page .hero-floating-dots .dot {
+        /* تقليل الحركة في الجوال لتوفير البطارية */
+        animation-duration: calc(var(--duration, 5s) * 1.3);
+    }
+}
+
+/* منع التكبير التلقائي في حقول الإدخال على الجوال */
+@media (max-width: 768px) {
+    .checkout-card input,
+    .checkout-card select,
+    .checkout-card textarea {
+        font-size: 16px !important; /* منع التكبير في iOS */
+    }
+}
+
+/* تحسين الأداء للجوال */
+@media (max-width: 768px) {
+    .checkout-page .hero-floating-dots {
+        /* تقليل عدد النقاط لتحسين الأداء */
+        --dot-count: 4;
+    }
+    
+    /* تقليل تأثير blur للبطاقة لتحسين الأداء */
+    .checkout-card {
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* دعم الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+    .checkout-card {
+        background: rgba(10, 4, 26, 0.85);
+        border-color: rgba(138, 43, 226, 0.3);
+    }
+    
+    .checkout-back-btn {
+        background: rgba(138, 43, 226, 0.2) !important;
+        border-color: rgba(164, 94, 255, 0.4) !important;
+    }
+}
