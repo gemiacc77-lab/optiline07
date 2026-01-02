@@ -6025,17 +6025,17 @@ img.icon, .icon img {
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
 /* =========================================
-   CHECKOUT PAGE REFINEMENTS (FIXED & POLISHED)
+   CHECKOUT PAGE FINAL REFINEMENTS (FIXED)
    ========================================= */
 
-/* 1. Header: Reduced Transparency (More Solid) */
+/* 1. Ultra-Thin Glass Header (Transparent & Slim) */
 .checkout-header-bar {
-    height: 70px !important;
-    padding: 0 5% !important;
-    /* زيادة التعتيم إلى 0.95 لتقليل الشفافية */
-    background: rgba(10, 4, 26, 0.95) !important;
-    backdrop-filter: blur(15px) !important;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.15);
+    height: auto !important; /* الارتفاع يتحدد حسب المحتوى فقط ليكون رفيعاً */
+    padding: 12px 5% !important; /* حشوة علوية وسفلية صغيرة جداً */
+    background: rgba(10, 4, 26, 0.6) !important; /* شفافية عالية جداً */
+    backdrop-filter: blur(20px) !important; /* تمويه قوي للزجاج */
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* حد سفلي خفيف جداً */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -6046,119 +6046,92 @@ img.icon, .icon img {
     z-index: 1000;
 }
 
-/* Logo Sizing */
 .checkout-header-bar .logo img {
-    height: 22px;
+    height: 20px; /* تصغير اللوجو ليتناسب مع الهيدر الرفيع */
     width: auto;
+    display: block;
 }
 
-/* 2. Button Styles (Maintains Mobile Fix) */
+/* 2. Unified Button (Desktop & Mobile Optimized) */
 .header-pkg-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 32px;
-    background: transparent;
-    border: 1px solid rgba(138, 43, 226, 0.5);
+    gap: 10px;
+    padding: 6px 24px; /* زر رشيق */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(138, 43, 226, 0.4);
     border-radius: 50px;
     color: var(--text-light);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
     text-decoration: none;
-    position: relative;
-    overflow: hidden;
     white-space: nowrap;
 }
 
 .header-pkg-btn:hover {
-    border-color: var(--accent-light);
     background: rgba(138, 43, 226, 0.15);
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.25);
+    border-color: #a78bfa;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
     transform: translateY(-1px);
 }
 
-.header-pkg-btn i {
-    transition: transform 0.3s ease;
-}
+.header-pkg-btn i { transition: transform 0.3s ease; }
+.header-pkg-btn:hover i { transform: translateX(-3px); }
 
-.header-pkg-btn:hover i {
-    transform: translateX(-4px);
-}
-
-/* --- MOBILE ADJUSTMENTS --- */
+/* Mobile Header Adjustments */
 @media (max-width: 480px) {
-    .checkout-header-bar {
-        padding: 0 20px !important;
-    }
-    .checkout-header-bar .logo img {
-        height: 18px;
-    }
-    .header-pkg-btn {
-        padding: 6px 16px;
-        gap: 6px;
-        font-size: 0.7rem;
-        letter-spacing: 0.5px;
-    }
+    .checkout-header-bar { padding: 10px 20px !important; }
+    .header-pkg-btn { padding: 5px 14px; font-size: 0.7rem; }
 }
 
-/* 3. Card Animation & Shadows (Fixed Visibility) */
+/* 3. Card Style (Exactly Matching Pricing Page) */
+/* استخدام نفس ألوان وظلال بطاقات الأسعار لتوحيد الهوية */
+.checkout-card-refined {
+    position: relative;
+    z-index: 1;
+    /* لون الخلفية مطابق لبطاقات الأسعار (داكن جداً مع مسحة بنفسجية) */
+    background: linear-gradient(145deg, rgba(20, 10, 40, 0.9) 0%, rgba(10, 4, 26, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(138, 43, 226, 0.2); /* حدود بنفسجية خافتة */
+    border-radius: 20px; /* تدوير الحواف */
+    
+    /* الأنيميشن: انزلاق ناعم للأعلى */
+    opacity: 0; /* البداية مخفية */
+    animation: smoothUpwardPop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s; /* تأخير بسيط جداً لضمان التحميل */
+    
+    /* الظل الافتراضي (ناعم) */
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
 
-/* تعريف حركة الانبثاق الناعمة */
-@keyframes smoothPopUp {
+/* 4. Animation Keyframes: Smooth Upward Pop */
+@keyframes smoothUpwardPop {
     0% {
         opacity: 0;
-        transform: scale(0.98) translateY(30px);
+        transform: translateY(60px) scale(0.96); /* يبدأ من الأسفل قليلاً ومصغر */
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translateY(0) scale(1); /* يستقر في مكانه */
     }
 }
 
-.checkout-card-refined {
-    /* ضمان ظهور العنصر (Animation fill mode handles the start state) */
-    animation: smoothPopUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    
-    /* الخلفية والحدود */
-    background: rgba(18, 8, 47, 0.85); /* خلفية داكنة متناسقة */
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(138, 43, 226, 0.1);
-    
-    /* ظل أساسي ناعم جداً (تم تخفيفه) */
-    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.3);
-
-    /* انتقالات ناعمة للظل والحركة */
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-    
-    /* إصلاح لأزرار PayPal */
-    position: relative;
-    z-index: 1;
-    overflow: visible; /* السماح للمحتوى بالظهور بشكل سليم */
-}
-
-/* 4. Hover Effect: Smooth Purple Glow */
+/* 5. Hover Effect (Purple Glow & Lift) */
 .checkout-card-refined:hover {
-    /* رفع البطاقة قليلاً للأعلى */
-    transform: translateY(-8px);
-    
-    /* ظل بنفسجي ناعم جداً ومنتشر */
+    transform: translateY(-8px); /* يرتفع قليلاً */
+    border-color: rgba(167, 139, 250, 0.5); /* تفتيح الحدود */
     box-shadow: 
-        0 20px 60px rgba(138, 43, 226, 0.2),  /* هالة بنفسجية واسعة */
-        0 0 20px rgba(138, 43, 226, 0.1);     /* توهج داخلي خفيف */
-        
-    border-color: rgba(138, 43, 226, 0.4);
+        0 30px 60px -10px rgba(10, 4, 26, 0.8), /* ظل عميق */
+        0 0 30px rgba(138, 43, 226, 0.15); /* توهج بنفسجي خلفي ناعم */
 }
 
-/* 5. PayPal Container Fix */
-#paypal-button-core, 
-#paypal-button-nexus, 
-#paypal-button-matrix {
+/* PayPal Buttons Container */
+#paypal-button-core, #paypal-button-nexus, #paypal-button-matrix {
+    margin-top: 2rem;
     position: relative;
-    z-index: 10;
-    min-height: 150px;
-    margin-top: 1.5rem;
-    clear: both; /* لمنع تداخل العناصر */
+    z-index: 5;
 }
