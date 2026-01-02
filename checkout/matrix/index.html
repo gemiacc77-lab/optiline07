@@ -29,21 +29,15 @@
 
     <main>
         <section class="checkout-section nexus-glow">
-            
             <div class="checkout-bg-glow"></div>
             
             <div class="hero-floating-dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div>
             </div>
 
-            <div class="checkout-card checkout-card-refined" data-delay="0.2">
+            <div class="checkout-card checkout-card-refined">
                 <div class="checkout-header">
                     <h1 style="color: #a78bfa; text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);">Initialize Matrix</h1>
                     <p>Maximum scope for maximum impact.</p>
@@ -60,7 +54,7 @@
                     <span class="checkout-total">$1,699.00</span>
                 </div>
 
-                <div id="paypal-button-matrix" style="min-height: 150px; position: relative; z-index: 5;"></div>
+                <div id="paypal-button-matrix" style="min-height: 150px; position: relative; z-index: 5; margin-top: 20px;"></div>
 
                 <div class="secure-badge">
                     <i class="fas fa-lock" style="color: #a78bfa;"></i> 256-bit SSL Encrypted
@@ -75,28 +69,28 @@
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script src="/assets/js/main.js"></script>
     
-    <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD" data-cfasync="false"></script>
     <script src="/assets/js/payment.js"></script>
 
-<script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // دالة انتظار ذكية لمكتبة PayPal
+            // الانتظار الذكي لمكتبة PayPal
             const waitForPayPal = setInterval(function() {
                 if (window.paypal) {
                     clearInterval(waitForPayPal);
-                    console.log("PayPal SDK Loaded. Initializing Button...");
+                    console.log("PayPal SDK Loaded. Initializing Matrix Button...");
                     
                     if (typeof initPayPalButton === 'function') {
+                        // هنا التعديل المهم: استخدام ID الخاص بـ Matrix
                         initPayPalButton({
-                            containerId: 'paypal-button-core', 
-                            price: '699',                      
-                            packageName: 'CORE PACK'           
+                            containerId: 'paypal-button-matrix', 
+                            price: '1699',
+                            packageName: 'MATRIX PACK'
                         });
                     }
                 }
-            }, 100); // تحقق كل 100 ميلي ثانية
+            }, 100);
 
-            // إيقاف المحاولة بعد 10 ثواني لتجنب التكرار اللانهائي
             setTimeout(() => clearInterval(waitForPayPal), 10000);
         });
     </script>
