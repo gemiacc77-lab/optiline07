@@ -6025,16 +6025,17 @@ img.icon, .icon img {
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
 /* =========================================
-   CHECKOUT PAGE REFINEMENTS (UPDATED FINAL)
+   CHECKOUT PAGE REFINEMENTS (FIXED & POLISHED)
    ========================================= */
 
-/* 1. Thinner, Unified Glass Header */
+/* 1. Header: Reduced Transparency (More Solid) */
 .checkout-header-bar {
     height: 70px !important;
     padding: 0 5% !important;
-    background: rgba(10, 4, 26, 0.85) !important;
-    backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+    /* زيادة التعتيم إلى 0.95 لتقليل الشفافية */
+    background: rgba(10, 4, 26, 0.95) !important;
+    backdrop-filter: blur(15px) !important;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -6045,18 +6046,18 @@ img.icon, .icon img {
     z-index: 1000;
 }
 
-/* Ensure Logo matches thinner header */
+/* Logo Sizing */
 .checkout-header-bar .logo img {
     height: 22px;
     width: auto;
 }
 
-/* 2. "Change Package" Button (Desktop Default) */
+/* 2. Button Styles (Maintains Mobile Fix) */
 .header-pkg-btn {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 32px; /* Slim vertical, wide horizontal */
+    padding: 8px 32px;
     background: transparent;
     border: 1px solid rgba(138, 43, 226, 0.5);
     border-radius: 50px;
@@ -6069,86 +6070,95 @@ img.icon, .icon img {
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .header-pkg-btn:hover {
     border-color: var(--accent-light);
-    background: rgba(138, 43, 226, 0.1);
+    background: rgba(138, 43, 226, 0.15);
     box-shadow: 0 0 20px rgba(138, 43, 226, 0.25);
     transform: translateY(-1px);
 }
 
 .header-pkg-btn i {
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s ease;
 }
 
 .header-pkg-btn:hover i {
     transform: translateX(-4px);
 }
 
-/* --- MOBILE FIXES FOR HEADER --- */
-@media (max-width: 768px) {
-    .checkout-header-bar {
-        padding: 0 20px !important; /* Reduce side padding on tablet/mobile */
-    }
-}
-
+/* --- MOBILE ADJUSTMENTS --- */
 @media (max-width: 480px) {
+    .checkout-header-bar {
+        padding: 0 20px !important;
+    }
     .checkout-header-bar .logo img {
-        height: 18px; /* Smaller logo on very small screens */
+        height: 18px;
     }
-
-    /* Compact Button for Mobile */
     .header-pkg-btn {
-        padding: 6px 16px; /* Much tighter padding */
-        gap: 8px; /* Smaller gap between icon and text */
-        font-size: 0.7rem; /* Smaller font size */
-        letter-spacing: 1px;
-        border-width: 1px;
+        padding: 6px 16px;
+        gap: 6px;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
     }
-    
-    /* Optional: Hide the icon on extremely small screens if needed to prevent overlap */
-    /* .header-pkg-btn i { display: none; } */
 }
 
+/* 3. Card Animation & Shadows (Fixed Visibility) */
 
-/* 3. Refined Card Animation & Hover Effects */
-
-/* Initial Entrance Animation */
-@keyframes softPopIn {
-    0% { opacity: 0; transform: scale(0.97) translateY(20px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
+/* تعريف حركة الانبثاق الناعمة */
+@keyframes smoothPopUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.98) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .checkout-card-refined {
-    /* Base properties */
-    animation: softPopIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: rgba(18, 8, 47, 0.85);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(138, 43, 226, 0.15);
+    /* ضمان ظهور العنصر (Animation fill mode handles the start state) */
+    animation: smoothPopUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     
-    /* Initial Shadow (Dark & Deep) */
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+    /* الخلفية والحدود */
+    background: rgba(18, 8, 47, 0.85); /* خلفية داكنة متناسقة */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.1);
+    
+    /* ظل أساسي ناعم جداً (تم تخفيفه) */
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.3);
 
-    /* Smooth transition for hover effects */
-    transition: 
-        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), /* Elastic pop effect */
-        box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), /* Smooth shadow change */
-        border-color 0.4s ease;
+    /* انتقالات ناعمة للظل والحركة */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    
+    /* إصلاح لأزرار PayPal */
+    position: relative;
+    z-index: 1;
+    overflow: visible; /* السماح للمحتوى بالظهور بشكل سليم */
 }
 
-/* HOVER STATE: Smooth Pop & Soft Purple Shadow */
+/* 4. Hover Effect: Smooth Purple Glow */
 .checkout-card-refined:hover {
-    /* 1. The Smooth Pop Up */
-    transform: translateY(-10px) scale(1.015);
-
-    /* 2. The Soft Purple Shadow Glow */
+    /* رفع البطاقة قليلاً للأعلى */
+    transform: translateY(-8px);
+    
+    /* ظل بنفسجي ناعم جداً ومنتشر */
     box-shadow: 
-        0 30px 70px rgba(138, 43, 226, 0.3), /* Broad soft purple glow */
-        0 10px 20px rgba(138, 43, 226, 0.2),  /* Closer, brighter purple */
-        inset 0 0 40px rgba(138, 43, 226, 0.05); /* Subtle inner purple light */
+        0 20px 60px rgba(138, 43, 226, 0.2),  /* هالة بنفسجية واسعة */
+        0 0 20px rgba(138, 43, 226, 0.1);     /* توهج داخلي خفيف */
         
-    /* Brighter border on hover */
-    border-color: rgba(138, 43, 226, 0.5);
+    border-color: rgba(138, 43, 226, 0.4);
+}
+
+/* 5. PayPal Container Fix */
+#paypal-button-core, 
+#paypal-button-nexus, 
+#paypal-button-matrix {
+    position: relative;
+    z-index: 10;
+    min-height: 150px;
+    margin-top: 1.5rem;
+    clear: both; /* لمنع تداخل العناصر */
 }
