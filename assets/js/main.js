@@ -1,20 +1,47 @@
-// --- Helper Functions ---
-
-// 1. Marketer Tracking
-function handleMarketerTracking() {
-    try {
-        const e = new URLSearchParams(window.location.search).get("ref");
-        if (e) {
-            localStorage.setItem("optiline_marketer_ref", e);
-            const t = new Date();
-            t.setTime(t.getTime() + 5184e6); // 60 days
-            const o = "expires=" + t.toUTCString();
-            document.cookie = `optiline_ref=${encodeURIComponent(e)}; ${o}; path=/; samesite=lax`;
-        }
-    } catch (e) {
-        console.warn("OPTILINE TRACKING: Error.", e);
+/**
+ * Marketer Tracking System - 60 Days Persistence
+ */
+(function() {
+    // 1. دالة لقراءة الكوكيز
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
-}
+
+    // 2. دالة لضبط الكوكيز (لمدة 60 يوم)
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+        
+        // حفظ نسخة احتياطية في LocalStorage أيضاً لزيادة الأمان
+        localStorage.setItem(name, value);
+    }
+
+    // 3. المنطق الرئيسي
+    const urlParams = new URLSearchParams(window.location.search);
+    const marketerFromUrl = urlParams.get('ref') || urlParams.get('marketer'); // ابحث عن ref أو marketer في الرابط
+
+    if (marketerFromUrl) {
+        // إذا وجدنا مسوق في الرابط، نحفظه فوراً في الكوكيز واللوكال ستوريج
+        console.log("Marketer Detected & Saved: " + marketerFromUrl);
+        setCookie('optiline_marketer_ref', marketerFromUrl, 60); // 60 يوم
+    } else {
+        // إذا لم يوجد في الرابط، نحاول استعادته من الكوكيز أو اللوكال ستوريج
+        const storedMarketer = getCookie('optiline_marketer_ref') || localStorage.getItem('optiline_marketer_ref');
+        if (storedMarketer) {
+            console.log("Returning Visitor - Marketer: " + storedMarketer);
+            // إعادة تجديد مدة الكوكيز لـ 60 يوم إضافية لضمان الاستمرارية
+            setCookie('optiline_marketer_ref', storedMarketer, 60);
+        }
+    }
+})();
 
 // 2. Cookie Consent
 function initCookieConsent() {
