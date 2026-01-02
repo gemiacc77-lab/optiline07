@@ -78,20 +78,26 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD"></script>
     <script src="/assets/js/payment.js"></script>
 
-    <script>
+<script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                if (typeof initPayPalButton === 'function') {
-                    console.log("Initializing Matrix Button...");
-                    initPayPalButton({
-                        containerId: 'paypal-button-matrix',
-                        price: '1699',
-                        packageName: 'MATRIX PACK'
-                    });
-                } else {
-                    console.error("Error: initPayPalButton function not found.");
+            // دالة انتظار ذكية لمكتبة PayPal
+            const waitForPayPal = setInterval(function() {
+                if (window.paypal) {
+                    clearInterval(waitForPayPal);
+                    console.log("PayPal SDK Loaded. Initializing Button...");
+                    
+                    if (typeof initPayPalButton === 'function') {
+                        initPayPalButton({
+                            containerId: 'paypal-button-core', 
+                            price: '699',                      
+                            packageName: 'CORE PACK'           
+                        });
+                    }
                 }
-            }, 500);
+            }, 100); // تحقق كل 100 ميلي ثانية
+
+            // إيقاف المحاولة بعد 10 ثواني لتجنب التكرار اللانهائي
+            setTimeout(() => clearInterval(waitForPayPal), 10000);
         });
     </script>
 </body>
