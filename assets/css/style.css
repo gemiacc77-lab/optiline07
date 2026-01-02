@@ -6024,88 +6024,191 @@ img.icon, .icon img {
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 /* =========================================
-   CHECKOUT PAGES STYLES (UNIFIED)
+   CHECKOUT PAGES UNIFIED STYLES
    ========================================= */
 
-/* 1. تصغير الهيدر في صفحات الدفع */
-.checkout-page-header {
-    padding: 6px 5% !important;
+/* 1. خلفية الصفحة */
+.checkout-page-body {
+    background: var(--primary-dark);
+    min-height: 100vh;
+    padding: 80px 20px 40px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 2. الهيدر النحيف */
+.checkout-main-header {
     height: 60px !important;
     min-height: 60px !important;
-    background: rgba(10, 4, 26, 0.85) !important;
-    backdrop-filter: blur(12px) !important;
+    padding: 8px 5% !important;
+    background: rgba(10, 4, 26, 0.9) !important;
+    backdrop-filter: blur(15px) !important;
     border-bottom: 1px solid var(--card-border-color) !important;
 }
 
-.checkout-page-header .logo img {
-    height: 20px !important;
+.checkout-main-header .logo img {
+    height: 22px !important;
     width: auto !important;
+    transition: transform var(--transition-fast);
 }
 
-/* 2. زر العودة النحيف */
-.slim-back-link {
+.checkout-main-header .logo:hover img {
+    transform: scale(1.05);
+}
+
+/* 3. زر العودة النحيف */
+.checkout-back-btn {
     position: absolute;
     top: 50%;
     right: 5%;
     transform: translateY(-50%);
     padding: 8px 20px;
-    background: transparent;
-    border: 1px solid var(--card-border-color);
-    color: var(--text-gray);
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    color: var(--accent-light);
     text-decoration: none;
-    border-radius: 30px;
+    border-radius: 25px;
     font-size: 0.85rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: all var(--transition-fast);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 1001;
     height: 36px;
     line-height: 1;
+    letter-spacing: 0.5px;
 }
 
-.slim-back-link:hover {
+.checkout-back-btn:hover {
+    background: rgba(138, 43, 226, 0.2);
     border-color: var(--accent-light);
-    color: var(--accent-light);
     transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
 }
 
-.slim-back-link i {
-    transition: transform var(--transition-fast);
+.checkout-back-btn i {
+    transition: transform 0.3s ease;
 }
 
-.slim-back-link:hover i {
+.checkout-back-btn:hover i {
     transform: translateX(-3px);
 }
 
-/* 3. البطاقة الرئيسية مع انبثاق وظل */
-.checkout-main-card {
+/* 4. الحاوية الرئيسية */
+.checkout-container {
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* 5. النقاط الطافية البنفسجية */
+.checkout-dots-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.checkout-dots-bg .dot {
+    position: absolute;
+    background-color: var(--accent-purple);
+    border-radius: 50%;
+    opacity: 0.08;
+    animation: checkoutFloat ease-in-out infinite alternate;
+}
+
+.checkout-dots-bg .dot:nth-child(1) {
+    left: 10%;
+    top: 20%;
+    width: 15px;
+    height: 15px;
+    animation-duration: 8s;
+}
+
+.checkout-dots-bg .dot:nth-child(2) {
+    left: 80%;
+    top: 30%;
+    width: 25px;
+    height: 25px;
+    animation-duration: 10s;
+}
+
+.checkout-dots-bg .dot:nth-child(3) {
+    left: 20%;
+    top: 70%;
+    width: 10px;
+    height: 10px;
+    animation-duration: 7s;
+}
+
+.checkout-dots-bg .dot:nth-child(4) {
+    left: 70%;
+    top: 80%;
+    width: 20px;
+    height: 20px;
+    animation-duration: 9s;
+}
+
+@keyframes checkoutFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(30px, -40px) scale(1.1);
+    }
+    100% {
+        transform: translate(-20px, -60px) scale(0.9);
+    }
+}
+
+/* 6. البطاقة الرئيسية مع انبثاق ناعم */
+.checkout-card-elegant {
     background: rgba(18, 8, 47, 0.7);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(138, 43, 226, 0.2);
     border-radius: 20px;
     padding: 3rem;
-    max-width: 500px;
     width: 100%;
-    margin: 2rem auto;
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(138, 43, 226, 0.1),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(138, 43, 226, 0.15),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
     position: relative;
     overflow: hidden;
-    animation: cardFloat 6s ease-in-out infinite;
-    transform: translateY(0);
+    animation: cardPopIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: center;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
 }
 
-@keyframes cardFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+@keyframes cardPopIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.checkout-main-card::before {
+.checkout-card-elegant::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+    z-index: 1;
+}
+
+.checkout-card-elegant::after {
     content: '';
     position: absolute;
     top: -50%;
@@ -6118,63 +6221,22 @@ img.icon, .icon img {
     z-index: 0;
 }
 
-/* 4. النقاط الطافية البنفسجية (مثل الصفحة الرئيسية) */
-.checkout-floating-dots {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
+@keyframes rotateSlow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.checkout-floating-dots .dot {
-    position: absolute;
-    background-color: var(--accent-purple);
-    border-radius: 50%;
-    opacity: 0.1;
-    animation: liquidFloat ease-in-out infinite alternate;
-}
-
-.checkout-floating-dots .dot:nth-child(1) {
-    left: 10%; top: 20%;
-    width: 15px; height: 15px;
-    animation-duration: 8s;
-}
-
-.checkout-floating-dots .dot:nth-child(2) {
-    left: 80%; top: 30%;
-    width: 25px; height: 25px;
-    animation-duration: 10s;
-}
-
-.checkout-floating-dots .dot:nth-child(3) {
-    left: 20%; top: 70%;
-    width: 10px; height: 10px;
-    animation-duration: 7s;
-}
-
-.checkout-floating-dots .dot:nth-child(4) {
-    left: 70%; top: 80%;
-    width: 20px; height: 20px;
-    animation-duration: 9s;
-}
-
-.checkout-floating-dots .dot:nth-child(5) {
-    left: 40%; top: 40%;
-    width: 12px; height: 12px;
-    animation-duration: 6s;
-}
-
-/* 5. محتوى البطاقة */
-.checkout-content {
+.checkout-card-content {
     position: relative;
     z-index: 2;
 }
 
-.checkout-title {
+/* 7. العناوين */
+.checkout-title-main {
     font-size: 2.2rem;
     color: var(--text-light);
     text-align: center;
@@ -6182,108 +6244,210 @@ img.icon, .icon img {
     font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 1.5px;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
 }
 
-.checkout-subtitle {
+.checkout-subtitle-main {
     color: var(--text-gray);
     text-align: center;
     margin-bottom: 2.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
 }
 
-/* 6. قائمة المميزات */
-.features-list {
+/* 8. قائمة المميزات */
+.checkout-features {
     list-style: none;
     padding: 0;
-    margin: 2rem 0;
+    margin: 2rem 0 2.5rem;
 }
 
-.features-list li {
+.checkout-features li {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 1.2rem;
     color: var(--text-light);
     font-size: 0.95rem;
-    padding: 0.8rem;
+    padding: 1rem;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
+    border-radius: 12px;
     border-left: 3px solid var(--accent-light);
+    transition: all 0.3s ease;
 }
 
-.features-list li i {
+.checkout-features li:hover {
+    background: rgba(138, 43, 226, 0.1);
+    transform: translateX(5px);
+}
+
+.checkout-features li i {
     color: var(--accent-light);
     font-size: 1.1rem;
     min-width: 24px;
+    text-align: center;
 }
 
-.features-list li strong {
+.checkout-features li strong {
     color: var(--accent-light);
     margin-right: 5px;
 }
 
-/* 7. سعر الباقة */
-.package-price {
+/* 9. عرض السعر */
+.checkout-price-display {
     display: block;
     text-align: center;
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 3.2rem;
     color: var(--accent-light);
-    margin: 2rem 0;
-    text-shadow: 0 0 20px rgba(164, 94, 255, 0.3);
+    margin: 2.5rem 0;
+    text-shadow: 0 0 25px rgba(164, 94, 255, 0.4);
     font-weight: 900;
+    position: relative;
+    padding: 1rem 0;
 }
 
-/* 8. زر PayPal */
-.paypal-container {
-    margin: 2rem 0;
+.checkout-price-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
+}
+
+.checkout-price-display::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
+}
+
+/* 10. حاوية PayPal */
+.paypal-wrapper {
+    margin: 2.5rem 0;
     position: relative;
     z-index: 10;
     min-height: 150px;
+    background: rgba(10, 4, 26, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(138, 43, 226, 0.2);
 }
 
-/* 9. شعار الأمان */
-.security-badge {
+/* 11. شعار الأمان */
+.checkout-security {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(138, 43, 226, 0.2);
     color: var(--text-gray);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.security-badge i {
+.checkout-security i {
     color: var(--accent-light);
+    font-size: 1.1rem;
 }
 
-/* 10. تحسينات للجوال */
+/* 12. تحسينات للجوال */
 @media (max-width: 768px) {
-    .checkout-main-card {
-        padding: 2rem 1.5rem;
-        margin: 1rem auto;
-        border-radius: 15px;
+    .checkout-page-body {
+        padding: 70px 15px 30px;
     }
     
-    .checkout-title {
+    .checkout-main-header {
+        padding: 6px 4% !important;
+        height: 55px !important;
+    }
+    
+    .checkout-back-btn {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+        right: 4%;
+    }
+    
+    .checkout-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .checkout-card-elegant {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    .checkout-title-main {
         font-size: 1.8rem;
     }
     
-    .package-price {
+    .checkout-subtitle-main {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .checkout-price-display {
         font-size: 2.5rem;
+        margin: 2rem 0;
     }
     
-    .slim-back-link {
-        padding: 6px 15px;
-        font-size: 0.8rem;
-        right: 15px;
-    }
-    
-    .features-list li {
+    .checkout-features li {
         font-size: 0.9rem;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .paypal-wrapper {
+        padding: 1rem;
+        margin: 2rem 0;
+    }
+    
+    .checkout-security {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-title-main {
+        font-size: 1.6rem;
+    }
+    
+    .checkout-price-display {
+        font-size: 2.2rem;
+    }
+    
+    .checkout-back-btn {
+        padding: 5px 14px;
+        font-size: 0.75rem;
+    }
+    
+    .checkout-card-elegant {
+        padding: 1.5rem;
+    }
+    
+    .checkout-features li {
+        font-size: 0.85rem;
         padding: 0.7rem;
+    }
+}
+
+/* 13. تحسينات للتابلت */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .checkout-container {
+        max-width: 600px;
+    }
+    
+    .checkout-card-elegant {
+        padding: 2.5rem;
     }
 }
