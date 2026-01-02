@@ -582,57 +582,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-// --- Checkout Page Enhancements ---
-function initCheckoutPage() {
-    // 1. تحديث الهيدر ليتطابق مع باقي الصفحات
-    const header = document.querySelector('.main-header');
-    if (header && header.classList.contains('scrolled')) {
-        header.classList.add('checkout-page-header');
-    }
-    
-    // 2. إضافة تأثيرات البطاقة
-    const checkoutCard = document.querySelector('.checkout-card');
-    if (checkoutCard) {
-        checkoutCard.classList.add('checkout-main-card');
+// --- تحسينات صفحات الدفع ---
+function enhanceCheckoutPages() {
+    // إذا كانت صفحة دفع
+    if (document.body.classList.contains('checkout-page-body')) {
+        console.log("Enhancing checkout page...");
         
-        // إضافة النقاط الطافية
-        const floatingDots = document.createElement('div');
-        floatingDots.className = 'checkout-floating-dots';
-        floatingDots.innerHTML = `
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        `;
-        checkoutCard.appendChild(floatingDots);
-        
-        // إضافة محتوى البطاقة
-        const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'checkout-content';
-        
-        // نقل المحتوى الحالي إلى الـ wrapper الجديد
-        const existingContent = checkoutCard.querySelector('.checkout-header, .checkout-summary, #paypal-button-core, #paypal-button-nexus, #paypal-button-matrix, .secure-badge');
-        if (existingContent) {
-            contentWrapper.innerHTML = checkoutCard.innerHTML;
-            checkoutCard.innerHTML = '';
-            checkoutCard.appendChild(contentWrapper);
+        // تأكد من أن الهيدر مضبوط بشكل صحيح
+        const header = document.querySelector('.main-header');
+        if (header && !header.classList.contains('scrolled')) {
+            header.classList.add('scrolled');
         }
-    }
-    
-    // 3. تحديث زر العودة
-    const backLink = document.querySelector('.back-link');
-    if (backLink) {
-        backLink.classList.add('slim-back-link');
+        
+        // تأثيرات إضافية للبطاقة
+        const card = document.querySelector('.checkout-card-elegant');
+        if (card) {
+            // إضافة تأثير الظل عند التمرير
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(138, 43, 226, 0.25)';
+                this.style.transform = 'translateY(-5px) scale(1.01)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(138, 43, 226, 0.15)';
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        }
+        
+        // تأثيرات للقائمة
+        const features = document.querySelectorAll('.checkout-features li');
+        features.forEach((item, index) => {
+            // تأخير ظهور كل عنصر
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 300 + (index * 100));
+        });
     }
 }
 
-// تشغيل التعديلات عند تحميل الصفحة
+// تشغيل التحسينات عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
-    // إذا كانت صفحة دفع
-    if (window.location.pathname.includes('/checkout/') || 
-        window.location.pathname.includes('/checkout2/') || 
-        window.location.pathname.includes('/checkout3/')) {
-        setTimeout(initCheckoutPage, 100);
-    }
+    // تحميل التحسينات مع تأخير بسيط
+    setTimeout(enhanceCheckoutPages, 100);
 });
