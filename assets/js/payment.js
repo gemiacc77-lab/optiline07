@@ -1,10 +1,9 @@
 /**
- * OPTILINE PAYMENT CLIENT
- * Handles UI states, PayPal interactions, and smart redirection.
+ * assets/js/payment.js
  */
 
-// Inject the Overlay HTML automatically when the script loads
 document.addEventListener("DOMContentLoaded", function() {
+    // إضافة كود الـ Overlay للصفحة تلقائياً
     const overlayHTML = `
     <div id="payment-overlay">
         <div class="payment-status-card">
@@ -30,36 +29,39 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
 });
 
-// UI Helper Functions
+// أدوات التحكم بالواجهة
 const UI = {
     overlay: () => document.getElementById('payment-overlay'),
     loading: () => document.getElementById('loading-state'),
     success: () => document.getElementById('success-state'),
     
     showProcessing: function() {
-        this.overlay().classList.add('active');
-        this.loading().style.display = 'block';
-        this.success().style.display = 'none';
+        if(this.overlay()) this.overlay().classList.add('active');
+        if(this.loading()) this.loading().style.display = 'block';
+        if(this.success()) this.success().style.display = 'none';
     },
     
     showSuccess: function() {
-        this.loading().style.display = 'none';
-        this.success().style.display = 'block';
-        document.querySelector('.success-checkmark').classList.add('animate-check');
+        if(this.loading()) this.loading().style.display = 'none';
+        if(this.success()) this.success().style.display = 'block';
+        const checkmark = document.querySelector('.success-checkmark');
+        if(checkmark) checkmark.classList.add('animate-check');
     },
     
     hide: function() {
-        this.overlay().classList.remove('active');
+        if(this.overlay()) this.overlay().classList.remove('active');
     }
 };
 
-/**
- * Initializes the PayPal Button
- * @param {Object} config - { containerId, price, packageName }
- */
+// الدالة الرئيسية
 function initPayPalButton(config) {
-    // UPDATED WEBHOOK URL (Replace with your NEW deployment URL)
+    // ضع رابط الويب آب الجديد هنا
     const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWNsRWtnGwvE66VpDOeishxk6jGRT6oJ6Qup73vgHI7mjbMvPPQoTAFcdeHC9CD-_RJQ/exec";
+
+    if (!window.paypal) {
+        console.error("PayPal SDK not loaded!");
+        return;
+    }
 
     paypal.Buttons({
         style: {
@@ -77,16 +79,12 @@ function initPayPalButton(config) {
             });
         },
         onApprove: function(data, actions) {
-            // 1. Show Processing UI immediately
             UI.showProcessing();
 
             return actions.order.capture().then(function(details) {
-                console.log("Payment Captured. Verifying with server...");
-
-                // 2. Send to Backend to verify & get Smart Redirect URL
+                
                 fetch(WEBHOOK_URL, {
                     method: 'POST',
-                    // 'text/plain' prevents CORS preflight issues with GAS
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
                         event_type: "PAYMENT.CAPTURE.COMPLETED",
@@ -102,20 +100,17 @@ function initPayPalButton(config) {
                 .then(response => response.json())
                 .then(serverData => {
                     if (serverData.status === 'success' && serverData.url) {
-                        // 3. Show Success Animation
                         UI.showSuccess();
-                        
-                        // 4. Redirect after short delay to let user see the success message
                         setTimeout(() => {
                             window.location.href = serverData.url;
-                        }, 2000); // 2 seconds delay
+                        }, 2000);
                     } else {
-                        throw new Error(serverData.message || "Server verification failed");
+                        throw new Error(serverData.message || "Verification failed");
                     }
                 })
                 .catch(err => {
-                    console.error("Redirection Logic Error:", err);
-                    alert("Payment successful (ID: " + details.id + "), but automatic redirection failed. Please contact support.");
+                    console.error("Error:", err);
+                    alert("Payment successful (ID: " + details.id + "), please contact support.");
                     UI.hide();
                 });
             });
@@ -123,7 +118,7 @@ function initPayPalButton(config) {
         onError: function(err) {
             console.error('PayPal Error:', err);
             UI.hide();
-            alert("Payment could not be processed. Please try again.");
+            alert("Payment Error. Please try again.");
         }
     }).render('#' + config.containerId);
 }
