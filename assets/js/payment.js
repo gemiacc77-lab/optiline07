@@ -88,15 +88,24 @@ function initPayPalButton(config) {
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
                         event_type: "PAYMENT.CAPTURE.COMPLETED",
-                        resource: {
-                            id: details.id,
-                            amount: { value: config.price },
-                            payer: details.payer,
-                            package: config.packageName,
-                            marketer: localStorage.getItem('optiline_marketer_ref') || ''
-                        }
-                    })
-                })
+                        // ... داخل fetch body ...
+resource: {
+    id: details.id,
+    amount: { value: config.price },
+    payer: details.payer,
+    package: config.packageName,
+    // نقرأ من الكوكيز أولاً، ثم اللوكال ستوريج، وإلا نفرض قيمة فارغة
+    marketer: (function() {
+        const getCookie = (name) => {
+            const v = `; ${document.cookie}`;
+            const p = v.split(`; ${name}=`);
+            if (p.length === 2) return p.pop().split(';').shift();
+            return null;
+        };
+        return getCookie('optiline_marketer_ref') || localStorage.getItem('optiline_marketer_ref') || '';
+    })()
+}
+// ...
                 .then(response => response.json())
                 .then(serverData => {
                     if (serverData.status === 'success' && serverData.url) {
