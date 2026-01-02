@@ -610,107 +610,101 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 /* =========================================
-   CHECKOUT PAGE ANIMATION
-   ========================================= */
-document.addEventListener("DOMContentLoaded", function() {
-    // التحقق من وجود بطاقة دفع
-    const checkoutCard = document.querySelector('.checkout-card');
-    
-    if (checkoutCard && typeof gsap !== 'undefined') {
-        const tl = gsap.timeline();
-        
-        // 1. ظهور البطاقة من الأسفل
-        tl.to(checkoutCard, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out"
-        })
-        // 2. ظهور عناصر القائمة بشكل متتابع
-        .to(".summary-item", {
-            opacity: 1,
-            x: 0,
-            stagger: 0.1,
-            duration: 0.6,
-            ease: "back.out(1.2)"
-        }, "-=0.5");
-        
-        // 3. تحريك بسيط للخلفية (النقاط) عند تحريك الماوس (اختياري للإبداع)
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth - e.pageX * 2) / 100;
-            const y = (window.innerHeight - e.pageY * 2) / 100;
-            gsap.to('.hero-floating-dots', {
-                x: x,
-                y: y,
-                duration: 2,
-                ease: "power2.out"
-            });
-        });
-    }
-});
-/* =========================================
-   MOBILE CHECKOUT ENHANCEMENTS
+   CHECKOUT PAGES MOBILE ENHANCEMENTS
    ========================================= */
 
-// تحسينات خاصة بصفحات الدفع على الجوال
-function enhanceCheckoutMobile() {
-    if (document.querySelector('.checkout-page')) {
-        // 1. منع التمرير الأفقي غير المقصود
-        document.body.style.overflowX = 'hidden';
-        
-        // 2. تحسين تجربة اللمس للأزرار
-        const checkoutBtn = document.querySelector('.checkout-back-btn');
-        if (checkoutBtn) {
-            checkoutBtn.addEventListener('touchstart', function() {
-                this.classList.add('touch-active');
-            }, { passive: true });
-            
-            checkoutBtn.addEventListener('touchend', function() {
-                this.classList.remove('touch-active');
-            }, { passive: true });
+function initCheckoutMobileEnhancements() {
+    // التحقق مما إذا كنا في صفحة دفع
+    const isCheckoutPage = document.body.classList.contains('checkout-page');
+    if (!isCheckoutPage) return;
+    
+    // 1. تحسين تجربة اللمس للزر
+    const checkoutBtn = document.querySelector('.checkout-back-btn');
+    if (checkoutBtn) {
+        // إضافة class للجوال
+        if ('ontouchstart' in window) {
+            checkoutBtn.classList.add('touch-device');
         }
         
-        // 3. تحسين منطقة اللمس للنقاط الساخنة
-        const interactiveElements = document.querySelectorAll('.summary-item, .secure-badge');
-        interactiveElements.forEach(el => {
+        // تأثير اللمس للجوال
+        checkoutBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.classList.add('touch-active');
+        }, { passive: false });
+        
+        checkoutBtn.addEventListener('touchend', function() {
+            this.classList.remove('touch-active');
+        }, { passive: true });
+        
+        checkoutBtn.addEventListener('touchcancel', function() {
+            this.classList.remove('touch-active');
+        }, { passive: true });
+    }
+    
+    // 2. منع التمرير الأفقي غير المقصود
+    document.body.style.overflowX = 'hidden';
+    
+    // 3. تحسين منطقة اللمس للعناصر التفاعلية
+    const interactiveElements = document.querySelectorAll('.summary-item, .secure-badge');
+    interactiveElements.forEach(el => {
+        if (window.innerWidth <= 768) {
             el.style.minHeight = '44px';
             el.style.display = 'flex';
             el.style.alignItems = 'center';
-        });
-        
-        // 4. تحسين تجربة PayPal على الجوال
-        const paypalButtons = document.querySelectorAll('[id^="paypal-button-"]');
-        paypalButtons.forEach(btn => {
-            btn.style.minHeight = '45px';
-        });
-        
-        // 5. تعديل الحركات للجوال
-        if (window.innerWidth <= 768) {
-            // تقليل حركة النقاط لتوفير البطارية
-            const dots = document.querySelectorAll('.hero-floating-dots .dot');
+            el.style.webkitTapHighlightColor = 'transparent';
+        }
+    });
+    
+    // 4. تحسين أداء النقاط الطافية للجوال
+    if (window.innerWidth <= 768) {
+        const dots = document.querySelectorAll('.checkout-page .hero-floating-dots .dot');
+        if (dots.length > 0) {
+            // تقليل سرعة الحركة لتوفير البطارية
             dots.forEach(dot => {
-                const currentDuration = getComputedStyle(dot).animationDuration;
-                const newDuration = parseFloat(currentDuration) * 1.5 + 's';
-                dot.style.animationDuration = newDuration;
+                const style = window.getComputedStyle(dot);
+                const currentDuration = style.animationDuration;
+                const durationValue = parseFloat(currentDuration);
+                
+                if (!isNaN(durationValue)) {
+                    const newDuration = (durationValue * 1.5) + 's';
+                    dot.style.animationDuration = newDuration;
+                    dot.style.willChange = 'transform, opacity';
+                }
             });
         }
+    }
+    
+    // 5. تحسين تجربة PayPal على الجوال
+    const paypalContainers = document.querySelectorAll('[id^="paypal-button-"]');
+    paypalContainers.forEach(container => {
+        if (window.innerWidth <= 768) {
+            container.style.minHeight = '45px';
+            container.style.position = 'relative';
+            container.style.zIndex = '5';
+        }
+    });
+    
+    // 6. إضافة class للجوال للتحكم في الأنيميشن
+    if (window.innerWidth <= 768) {
+        document.body.classList.add('mobile-checkout');
+    } else {
+        document.body.classList.remove('mobile-checkout');
     }
 }
 
 // تشغيل التحسينات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-    enhanceCheckoutMobile();
-    
-    // إضافة class للجوال للتحكم في الأنيميشن
-    if (window.innerWidth <= 768) {
-        document.body.classList.add('mobile-checkout');
-    }
+    initCheckoutMobileEnhancements();
     
     // تحديث عند تغيير حجم النافذة
+    let resizeTimer;
     window.addEventListener('resize', function() {
-        enhanceCheckoutMobile();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            initCheckoutMobileEnhancements();
+        }, 250);
     });
+    
+    // تحسين أداء اللمس العام
+    document.addEventListener('touchstart', function() {}, { passive: true });
 });
-
-// تحسين أداء اللمس
-document.addEventListener('touchstart', function() {}, { passive: true });
