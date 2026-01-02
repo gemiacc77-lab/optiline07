@@ -609,3 +609,42 @@ document.addEventListener("DOMContentLoaded", function() {
         }, "-=0.4");
     }
 });
+/* =========================================
+   CHECKOUT PAGE ANIMATION
+   ========================================= */
+document.addEventListener("DOMContentLoaded", function() {
+    // التحقق من وجود بطاقة دفع
+    const checkoutCard = document.querySelector('.checkout-card');
+    
+    if (checkoutCard && typeof gsap !== 'undefined') {
+        const tl = gsap.timeline();
+        
+        // 1. ظهور البطاقة من الأسفل
+        tl.to(checkoutCard, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+        })
+        // 2. ظهور عناصر القائمة بشكل متتابع
+        .to(".summary-item", {
+            opacity: 1,
+            x: 0,
+            stagger: 0.1,
+            duration: 0.6,
+            ease: "back.out(1.2)"
+        }, "-=0.5");
+        
+        // 3. تحريك بسيط للخلفية (النقاط) عند تحريك الماوس (اختياري للإبداع)
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+            gsap.to('.hero-floating-dots', {
+                x: x,
+                y: y,
+                duration: 2,
+                ease: "power2.out"
+            });
+        });
+    }
+});
