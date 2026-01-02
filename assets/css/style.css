@@ -6023,3 +6023,85 @@ img.icon, .icon img {
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+/* =========================================
+   CHECKOUT PAGE REFINEMENTS (FINAL)
+   ========================================= */
+
+/* 1. Thinner, Unified Glass Header */
+.checkout-header-bar {
+    height: 70px !important; /* Reduced visual height */
+    padding: 0 5% !important;
+    background: rgba(10, 4, 26, 0.85) !important; /* Standard dark glass */
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* 2. "Change Package" Button (Slim & Wide) */
+.header-pkg-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 32px; /* Slim vertical, wide horizontal */
+    background: transparent;
+    border: 1px solid rgba(138, 43, 226, 0.5); /* Subtle purple frame */
+    border-radius: 50px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-pkg-btn:hover {
+    border-color: var(--accent-light);
+    background: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.25);
+    transform: translateY(-1px);
+}
+
+.header-pkg-btn i {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Arrow Animation (Matches site standard) */
+.header-pkg-btn:hover i {
+    transform: translateX(-4px);
+}
+
+/* 3. Refined Card Animation (Smooth Pop-in) */
+@keyframes softPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.97) translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.checkout-card-refined {
+    animation: softPopIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6); /* Soft, deep shadow */
+    border: 1px solid rgba(138, 43, 226, 0.15);
+    background: rgba(18, 8, 47, 0.85); /* Consistent with homepage styling */
+    backdrop-filter: blur(20px);
+}
+
+/* Ensure Logo matches thinner header */
+.checkout-header-bar .logo img {
+    height: 22px; /* Slightly smaller to fit thinner header */
+    width: auto;
+}
