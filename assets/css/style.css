@@ -5762,3 +5762,64 @@ img.icon, .icon img {
         z-index: 1;
     }
 }
+/* Checkout Page Styles */
+.checkout-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 120px; /* To account for fixed header */
+    padding-bottom: 50px;
+}
+
+.checkout-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.checkout-summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-block: 1.5rem;
+}
+
+.checkout-summary li {
+    margin-bottom: 0.8rem;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkout-summary li i {
+    color: var(--primary-color, #0070ba); /* fallback color */
+}
+
+.checkout-total {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    display: block;
+    color: #fff;
+}
+
+.secure-badge {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
