@@ -6135,3 +6135,116 @@ img.icon, .icon img {
     position: relative;
     z-index: 5;
 }
+/* =========================================
+   CHECKOUT PAGE FINAL FIXES
+   ========================================= */
+
+/* 1. Ultra-Thin Glass Header */
+.checkout-header-bar {
+    height: auto !important;
+    padding: 12px 5% !important;
+    background: rgba(10, 4, 26, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.checkout-header-bar .logo img {
+    height: 20px;
+    width: auto;
+    display: block;
+}
+
+/* 2. Unified Header Button */
+.header-pkg-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    border-radius: 50px;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.header-pkg-btn:hover {
+    background: rgba(138, 43, 226, 0.15);
+    border-color: #a78bfa;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    transform: translateY(-1px);
+}
+
+.header-pkg-btn i { transition: transform 0.3s ease; }
+.header-pkg-btn:hover i { transform: translateX(-3px); }
+
+/* Mobile Header Adjustments */
+@media (max-width: 480px) {
+    .checkout-header-bar { padding: 10px 20px !important; }
+    .header-pkg-btn { padding: 5px 14px; font-size: 0.7rem; }
+}
+
+/* 3. Refined Card Style & Animation */
+.checkout-card-refined {
+    position: relative;
+    z-index: 1;
+    /* نفس خلفية بطاقات الأسعار */
+    background: linear-gradient(145deg, rgba(20, 10, 40, 0.9) 0%, rgba(10, 4, 26, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 550px;
+    
+    /* Animation: Smooth Upward Pop */
+    opacity: 0;
+    animation: smoothUpwardPop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;
+    
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+@keyframes smoothUpwardPop {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Hover Effect */
+.checkout-card-refined:hover {
+    transform: translateY(-8px);
+    border-color: rgba(167, 139, 250, 0.5);
+    box-shadow: 
+        0 30px 60px -10px rgba(10, 4, 26, 0.8),
+        0 0 30px rgba(138, 43, 226, 0.15);
+}
+
+/* PayPal Button Spacing */
+#paypal-button-core, 
+#paypal-button-matrix, 
+#paypal-button-nexus {
+    position: relative;
+    z-index: 10;
+    clear: both;
+}
