@@ -65,6 +65,26 @@
     <script src="/assets/js/main.js"></script>
     
     <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD"></script>
+    
     <script src="/assets/js/payment.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // ننتظر قليلاً للتأكد من تحميل كل المكتبات
+            setTimeout(function() {
+                if (typeof initPayPalButton === 'function') {
+                    console.log("Initializing PayPal Button...");
+                    initPayPalButton({
+                        containerId: 'paypal-button-core', 
+                        price: '699',                      
+                        packageName: 'CORE PACK'           
+                    });
+                } else {
+                    console.error("Error: initPayPalButton function not found in payment.js");
+                    alert("System Error: Payment logic not loaded. Please refresh.");
+                }
+            }, 500); // تأخير نصف ثانية لضمان التحميل
+        });
+    </script>
 </body>
 </html>
