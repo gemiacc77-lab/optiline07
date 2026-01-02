@@ -6023,15 +6023,16 @@ img.icon, .icon img {
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
 /* =========================================
-   CHECKOUT PAGE REFINEMENTS (FINAL)
+   CHECKOUT PAGE REFINEMENTS (UPDATED FINAL)
    ========================================= */
 
 /* 1. Thinner, Unified Glass Header */
 .checkout-header-bar {
-    height: 70px !important; /* Reduced visual height */
+    height: 70px !important;
     padding: 0 5% !important;
-    background: rgba(10, 4, 26, 0.85) !important; /* Standard dark glass */
+    background: rgba(10, 4, 26, 0.85) !important;
     backdrop-filter: blur(12px) !important;
     border-bottom: 1px solid rgba(138, 43, 226, 0.1);
     display: flex;
@@ -6044,14 +6045,20 @@ img.icon, .icon img {
     z-index: 1000;
 }
 
-/* 2. "Change Package" Button (Slim & Wide) */
+/* Ensure Logo matches thinner header */
+.checkout-header-bar .logo img {
+    height: 22px;
+    width: auto;
+}
+
+/* 2. "Change Package" Button (Desktop Default) */
 .header-pkg-btn {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 8px 32px; /* Slim vertical, wide horizontal */
     background: transparent;
-    border: 1px solid rgba(138, 43, 226, 0.5); /* Subtle purple frame */
+    border: 1px solid rgba(138, 43, 226, 0.5);
     border-radius: 50px;
     color: var(--text-light);
     font-size: 0.85rem;
@@ -6062,6 +6069,7 @@ img.icon, .icon img {
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .header-pkg-btn:hover {
@@ -6075,33 +6083,72 @@ img.icon, .icon img {
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Arrow Animation (Matches site standard) */
 .header-pkg-btn:hover i {
     transform: translateX(-4px);
 }
 
-/* 3. Refined Card Animation (Smooth Pop-in) */
+/* --- MOBILE FIXES FOR HEADER --- */
+@media (max-width: 768px) {
+    .checkout-header-bar {
+        padding: 0 20px !important; /* Reduce side padding on tablet/mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-header-bar .logo img {
+        height: 18px; /* Smaller logo on very small screens */
+    }
+
+    /* Compact Button for Mobile */
+    .header-pkg-btn {
+        padding: 6px 16px; /* Much tighter padding */
+        gap: 8px; /* Smaller gap between icon and text */
+        font-size: 0.7rem; /* Smaller font size */
+        letter-spacing: 1px;
+        border-width: 1px;
+    }
+    
+    /* Optional: Hide the icon on extremely small screens if needed to prevent overlap */
+    /* .header-pkg-btn i { display: none; } */
+}
+
+
+/* 3. Refined Card Animation & Hover Effects */
+
+/* Initial Entrance Animation */
 @keyframes softPopIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.97) translateY(15px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    0% { opacity: 0; transform: scale(0.97) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .checkout-card-refined {
+    /* Base properties */
     animation: softPopIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6); /* Soft, deep shadow */
-    border: 1px solid rgba(138, 43, 226, 0.15);
-    background: rgba(18, 8, 47, 0.85); /* Consistent with homepage styling */
+    background: rgba(18, 8, 47, 0.85);
     backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.15);
+    
+    /* Initial Shadow (Dark & Deep) */
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+
+    /* Smooth transition for hover effects */
+    transition: 
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), /* Elastic pop effect */
+        box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), /* Smooth shadow change */
+        border-color 0.4s ease;
 }
 
-/* Ensure Logo matches thinner header */
-.checkout-header-bar .logo img {
-    height: 22px; /* Slightly smaller to fit thinner header */
-    width: auto;
+/* HOVER STATE: Smooth Pop & Soft Purple Shadow */
+.checkout-card-refined:hover {
+    /* 1. The Smooth Pop Up */
+    transform: translateY(-10px) scale(1.015);
+
+    /* 2. The Soft Purple Shadow Glow */
+    box-shadow: 
+        0 30px 70px rgba(138, 43, 226, 0.3), /* Broad soft purple glow */
+        0 10px 20px rgba(138, 43, 226, 0.2),  /* Closer, brighter purple */
+        inset 0 0 40px rgba(138, 43, 226, 0.05); /* Subtle inner purple light */
+        
+    /* Brighter border on hover */
+    border-color: rgba(138, 43, 226, 0.5);
 }
