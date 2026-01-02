@@ -648,3 +648,69 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+/* =========================================
+   MOBILE CHECKOUT ENHANCEMENTS
+   ========================================= */
+
+// تحسينات خاصة بصفحات الدفع على الجوال
+function enhanceCheckoutMobile() {
+    if (document.querySelector('.checkout-page')) {
+        // 1. منع التمرير الأفقي غير المقصود
+        document.body.style.overflowX = 'hidden';
+        
+        // 2. تحسين تجربة اللمس للأزرار
+        const checkoutBtn = document.querySelector('.checkout-back-btn');
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
+            }, { passive: true });
+            
+            checkoutBtn.addEventListener('touchend', function() {
+                this.classList.remove('touch-active');
+            }, { passive: true });
+        }
+        
+        // 3. تحسين منطقة اللمس للنقاط الساخنة
+        const interactiveElements = document.querySelectorAll('.summary-item, .secure-badge');
+        interactiveElements.forEach(el => {
+            el.style.minHeight = '44px';
+            el.style.display = 'flex';
+            el.style.alignItems = 'center';
+        });
+        
+        // 4. تحسين تجربة PayPal على الجوال
+        const paypalButtons = document.querySelectorAll('[id^="paypal-button-"]');
+        paypalButtons.forEach(btn => {
+            btn.style.minHeight = '45px';
+        });
+        
+        // 5. تعديل الحركات للجوال
+        if (window.innerWidth <= 768) {
+            // تقليل حركة النقاط لتوفير البطارية
+            const dots = document.querySelectorAll('.hero-floating-dots .dot');
+            dots.forEach(dot => {
+                const currentDuration = getComputedStyle(dot).animationDuration;
+                const newDuration = parseFloat(currentDuration) * 1.5 + 's';
+                dot.style.animationDuration = newDuration;
+            });
+        }
+    }
+}
+
+// تشغيل التحسينات عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    enhanceCheckoutMobile();
+    
+    // إضافة class للجوال للتحكم في الأنيميشن
+    if (window.innerWidth <= 768) {
+        document.body.classList.add('mobile-checkout');
+    }
+    
+    // تحديث عند تغيير حجم النافذة
+    window.addEventListener('resize', function() {
+        enhanceCheckoutMobile();
+    });
+});
+
+// تحسين أداء اللمس
+document.addEventListener('touchstart', function() {}, { passive: true });
