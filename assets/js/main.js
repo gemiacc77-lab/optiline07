@@ -582,129 +582,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-/* =========================================
-   CHECKOUT ANIMATIONS (ADD TO END OF MAIN.JS)
-   ========================================= */
-document.addEventListener("DOMContentLoaded", function() {
-    // التحقق مما إذا كنا في صفحة دفع
+// --- Checkout Page Enhancements ---
+function initCheckoutPage() {
+    // 1. تحديث الهيدر ليتطابق مع باقي الصفحات
+    const header = document.querySelector('.main-header');
+    if (header && header.classList.contains('scrolled')) {
+        header.classList.add('checkout-page-header');
+    }
+    
+    // 2. إضافة تأثيرات البطاقة
     const checkoutCard = document.querySelector('.checkout-card');
-    
-    if (checkoutCard && typeof gsap !== 'undefined') {
-        const tl = gsap.timeline();
+    if (checkoutCard) {
+        checkoutCard.classList.add('checkout-main-card');
         
-        // تحريك البطاقة للأعلى والظهور
-        tl.to(checkoutCard, {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        })
-        // تحريك عناصر القائمة بشكل متتابع
-        .to(".summary-item", {
-            opacity: 1,
-            x: 0,
-            stagger: 0.1,
-            duration: 0.5,
-            ease: "back.out(1.7)"
-        }, "-=0.4");
-    }
-});
-/* =========================================
-   CHECKOUT PAGES MOBILE ENHANCEMENTS
-   ========================================= */
-
-function initCheckoutMobileEnhancements() {
-    // التحقق مما إذا كنا في صفحة دفع
-    const isCheckoutPage = document.body.classList.contains('checkout-page');
-    if (!isCheckoutPage) return;
-    
-    // 1. تحسين تجربة اللمس للزر
-    const checkoutBtn = document.querySelector('.checkout-back-btn');
-    if (checkoutBtn) {
-        // إضافة class للجوال
-        if ('ontouchstart' in window) {
-            checkoutBtn.classList.add('touch-device');
-        }
+        // إضافة النقاط الطافية
+        const floatingDots = document.createElement('div');
+        floatingDots.className = 'checkout-floating-dots';
+        floatingDots.innerHTML = `
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        `;
+        checkoutCard.appendChild(floatingDots);
         
-        // تأثير اللمس للجوال
-        checkoutBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            this.classList.add('touch-active');
-        }, { passive: false });
+        // إضافة محتوى البطاقة
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'checkout-content';
         
-        checkoutBtn.addEventListener('touchend', function() {
-            this.classList.remove('touch-active');
-        }, { passive: true });
-        
-        checkoutBtn.addEventListener('touchcancel', function() {
-            this.classList.remove('touch-active');
-        }, { passive: true });
-    }
-    
-    // 2. منع التمرير الأفقي غير المقصود
-    document.body.style.overflowX = 'hidden';
-    
-    // 3. تحسين منطقة اللمس للعناصر التفاعلية
-    const interactiveElements = document.querySelectorAll('.summary-item, .secure-badge');
-    interactiveElements.forEach(el => {
-        if (window.innerWidth <= 768) {
-            el.style.minHeight = '44px';
-            el.style.display = 'flex';
-            el.style.alignItems = 'center';
-            el.style.webkitTapHighlightColor = 'transparent';
-        }
-    });
-    
-    // 4. تحسين أداء النقاط الطافية للجوال
-    if (window.innerWidth <= 768) {
-        const dots = document.querySelectorAll('.checkout-page .hero-floating-dots .dot');
-        if (dots.length > 0) {
-            // تقليل سرعة الحركة لتوفير البطارية
-            dots.forEach(dot => {
-                const style = window.getComputedStyle(dot);
-                const currentDuration = style.animationDuration;
-                const durationValue = parseFloat(currentDuration);
-                
-                if (!isNaN(durationValue)) {
-                    const newDuration = (durationValue * 1.5) + 's';
-                    dot.style.animationDuration = newDuration;
-                    dot.style.willChange = 'transform, opacity';
-                }
-            });
+        // نقل المحتوى الحالي إلى الـ wrapper الجديد
+        const existingContent = checkoutCard.querySelector('.checkout-header, .checkout-summary, #paypal-button-core, #paypal-button-nexus, #paypal-button-matrix, .secure-badge');
+        if (existingContent) {
+            contentWrapper.innerHTML = checkoutCard.innerHTML;
+            checkoutCard.innerHTML = '';
+            checkoutCard.appendChild(contentWrapper);
         }
     }
     
-    // 5. تحسين تجربة PayPal على الجوال
-    const paypalContainers = document.querySelectorAll('[id^="paypal-button-"]');
-    paypalContainers.forEach(container => {
-        if (window.innerWidth <= 768) {
-            container.style.minHeight = '45px';
-            container.style.position = 'relative';
-            container.style.zIndex = '5';
-        }
-    });
-    
-    // 6. إضافة class للجوال للتحكم في الأنيميشن
-    if (window.innerWidth <= 768) {
-        document.body.classList.add('mobile-checkout');
-    } else {
-        document.body.classList.remove('mobile-checkout');
+    // 3. تحديث زر العودة
+    const backLink = document.querySelector('.back-link');
+    if (backLink) {
+        backLink.classList.add('slim-back-link');
     }
 }
 
-// تشغيل التحسينات عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    initCheckoutMobileEnhancements();
-    
-    // تحديث عند تغيير حجم النافذة
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            initCheckoutMobileEnhancements();
-        }, 250);
-    });
-    
-    // تحسين أداء اللمس العام
-    document.addEventListener('touchstart', function() {}, { passive: true });
+// تشغيل التعديلات عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function() {
+    // إذا كانت صفحة دفع
+    if (window.location.pathname.includes('/checkout/') || 
+        window.location.pathname.includes('/checkout2/') || 
+        window.location.pathname.includes('/checkout3/')) {
+        setTimeout(initCheckoutPage, 100);
+    }
 });
