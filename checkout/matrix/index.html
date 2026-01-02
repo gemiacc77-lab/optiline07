@@ -18,22 +18,32 @@
 <body>
     <div class="custom-cursor"></div>
     
-    <header class="main-header" style="background: rgba(10,10,10,0.8);">
+    <header class="checkout-header-bar">
         <a href="/" class="logo">
             <img src="/assets/imgs/optiline-logo.webp" width="150" height="25" alt="OPTILINE">
+        </a>
+        <a href="/pricing/" class="header-pkg-btn">
+            <i class="fas fa-arrow-left"></i> Change Package
         </a>
     </header>
 
     <main>
         <section class="checkout-section nexus-glow">
-            <a href="/pricing/" class="back-link"><i class="fas fa-arrow-left"></i> Change Package</a>
             
             <div class="checkout-bg-glow"></div>
+            
             <div class="hero-floating-dots">
-                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
 
-            <div class="checkout-card anim-group" data-delay="0.2">
+            <div class="checkout-card checkout-card-refined" data-delay="0.2">
                 <div class="checkout-header">
                     <h1 style="color: #a78bfa; text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);">Initialize Matrix</h1>
                     <p>Maximum scope for maximum impact.</p>
@@ -73,9 +83,9 @@
                 if (typeof initPayPalButton === 'function') {
                     console.log("Initializing Matrix Button...");
                     initPayPalButton({
-                        containerId: 'paypal-button-matrix', // تأكدنا من تطابق الـ ID
-                        price: '1699',                       // سعر باقة ماتريكس
-                        packageName: 'MATRIX PACK'           // الاسم للسيستم
+                        containerId: 'paypal-button-matrix',
+                        price: '1699',
+                        packageName: 'MATRIX PACK'
                     });
                 } else {
                     console.error("Error: initPayPalButton function not found.");
