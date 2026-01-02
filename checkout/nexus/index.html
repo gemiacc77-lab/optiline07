@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Secure Checkout - NEXUS PACK | OPTILINE</title>
     <meta name="robots" content="noindex, nofollow">
+    
     <link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -30,16 +35,16 @@
 
             <div class="checkout-card anim-group" data-delay="0.2">
                 <div class="checkout-header">
-                    <h1 style="color: #a78bfa; text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);">Engage Nexus</h1>
-                    <p>Accelerate your growth systems.</p>
+                    <h1 style="color: #a78bfa; text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);">Initialize Nexus</h1>
+                    <p>Accelerated systems for scaling businesses.</p>
                 </div>
 
                 <div class="checkout-summary">
                     <h3 style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.2);">NEXUS PACK OVERVIEW</h3>
                     <ul>
-                        <li><i class="fas fa-gem" style="color: #a78bfa;"></i> <strong>Branding:</strong> Full Guidelines & Typography.</li>
-                        <li><i class="fas fa-images" style="color: #a78bfa;"></i> <strong>Content:</strong> 12 Posts + Mini Calendar.</li>
-                        <li><i class="fas fa-rocket" style="color: #a78bfa;"></i> <strong>Ads:</strong> Dual Campaigns + Pixel Events.</li>
+                        <li><i class="fas fa-fingerprint" style="color: #a78bfa;"></i> <strong>Identity:</strong> Full Logo Set, Typography & Guidelines.</li>
+                        <li><i class="fas fa-layer-group" style="color: #a78bfa;"></i> <strong>Content:</strong> 12 Posts + Mini Content Calendar.</li>
+                        <li><i class="fas fa-bullseye" style="color: #a78bfa;"></i> <strong>Ads:</strong> Dual Campaign Setup + Pixel Events.</li>
                         <li><i class="fas fa-clock" style="color: #a78bfa;"></i> <strong>Delivery:</strong> 14 Business Days.</li>
                     </ul>
                     <span class="checkout-total">$1,299.00</span>
@@ -48,7 +53,7 @@
                 <div id="paypal-button-nexus" style="min-height: 150px; position: relative; z-index: 5;"></div>
 
                 <div class="secure-badge">
-                    <i class="fas fa-shield-alt" style="color: #a78bfa;"></i> Verified Transaction
+                    <i class="fas fa-lock" style="color: #a78bfa;"></i> 256-bit SSL Encrypted
                 </div>
             </div>
         </section>
@@ -61,5 +66,22 @@
     
     <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD"></script>
     <script src="/assets/js/payment.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                if (typeof initPayPalButton === 'function') {
+                    console.log("Initializing Nexus Button...");
+                    initPayPalButton({
+                        containerId: 'paypal-button-nexus', // تأكدنا من تطابق الـ ID
+                        price: '1299',                      // سعر باقة نكسس
+                        packageName: 'NEXUS PACK'           // الاسم الذي سيتم إرساله للسيستم
+                    });
+                } else {
+                    console.error("Error: initPayPalButton function not found.");
+                }
+            }, 500);
+        });
+    </script>
 </body>
 </html>
