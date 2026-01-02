@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Secure Checkout - MATRIX PACK | OPTILINE</title>
     <meta name="robots" content="noindex, nofollow">
+    
     <link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -25,22 +30,22 @@
             
             <div class="checkout-bg-glow"></div>
             <div class="hero-floating-dots">
-                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
             </div>
 
             <div class="checkout-card anim-group" data-delay="0.2">
                 <div class="checkout-header">
-                    <h1 style="color: #a78bfa; text-shadow: 0 0 20px rgba(167, 139, 250, 0.4);">Unlock System</h1>
-                    <p>Maximum scope. Complete domination.</p>
+                    <h1 style="color: #a78bfa; text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);">Initialize Matrix</h1>
+                    <p>Maximum scope for maximum impact.</p>
                 </div>
 
                 <div class="checkout-summary">
                     <h3 style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.2);">MATRIX PACK OVERVIEW</h3>
                     <ul>
-                        <li><i class="fas fa-crown" style="color: #a78bfa;"></i> <strong>Identity:</strong> Complete Suite + Tone of Voice.</li>
-                        <li><i class="fas fa-video" style="color: #a78bfa;"></i> <strong>Content:</strong> 30 High-Impact Posts + Strategy.</li>
-                        <li><i class="fas fa-network-wired" style="color: #a78bfa;"></i> <strong>Ads:</strong> Full Funnel (3 Campaigns).</li>
-                        <li><i class="fas fa-infinity" style="color: #a78bfa;"></i> <strong>VIP:</strong> Unlimited Revisions.</li>
+                        <li><i class="fas fa-fingerprint" style="color: #a78bfa;"></i> <strong>Identity:</strong> Complete Visual System + Guidelines.</li>
+                        <li><i class="fas fa-layer-group" style="color: #a78bfa;"></i> <strong>Content:</strong> 30 High-Impact Posts + Strategy.</li>
+                        <li><i class="fas fa-bullseye" style="color: #a78bfa;"></i> <strong>Ads:</strong> Full Funnel (3 Campaigns) + Conversions.</li>
+                        <li><i class="fas fa-clock" style="color: #a78bfa;"></i> <strong>Delivery:</strong> 21 Business Days.</li>
                     </ul>
                     <span class="checkout-total">$1,699.00</span>
                 </div>
@@ -48,7 +53,7 @@
                 <div id="paypal-button-matrix" style="min-height: 150px; position: relative; z-index: 5;"></div>
 
                 <div class="secure-badge">
-                    <i class="fas fa-check-circle" style="color: #a78bfa;"></i> 100% Satisfaction Guarantee
+                    <i class="fas fa-lock" style="color: #a78bfa;"></i> 256-bit SSL Encrypted
                 </div>
             </div>
         </section>
@@ -61,5 +66,22 @@
     
     <script src="https://www.paypal.com/sdk/js?client-id=AVC5DnyZf-3MykD_aZ9oznaqOpR6Zh9hk33e39TY1WF7ttV8ykJd_aIUekPSlTOUW-42NuKiGL_5tCQG&currency=USD"></script>
     <script src="/assets/js/payment.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                if (typeof initPayPalButton === 'function') {
+                    console.log("Initializing Matrix Button...");
+                    initPayPalButton({
+                        containerId: 'paypal-button-matrix', // تأكدنا من تطابق الـ ID
+                        price: '1699',                       // سعر باقة ماتريكس
+                        packageName: 'MATRIX PACK'           // الاسم للسيستم
+                    });
+                } else {
+                    console.error("Error: initPayPalButton function not found.");
+                }
+            }, 500);
+        });
+    </script>
 </body>
 </html>
