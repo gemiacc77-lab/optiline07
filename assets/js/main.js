@@ -582,3 +582,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+/* =========================================
+   CHECKOUT ANIMATIONS (ADD TO END OF MAIN.JS)
+   ========================================= */
+document.addEventListener("DOMContentLoaded", function() {
+    // التحقق مما إذا كنا في صفحة دفع
+    const checkoutCard = document.querySelector('.checkout-card');
+    
+    if (checkoutCard && typeof gsap !== 'undefined') {
+        const tl = gsap.timeline();
+        
+        // تحريك البطاقة للأعلى والظهور
+        tl.to(checkoutCard, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        })
+        // تحريك عناصر القائمة بشكل متتابع
+        .to(".summary-item", {
+            opacity: 1,
+            x: 0,
+            stagger: 0.1,
+            duration: 0.5,
+            ease: "back.out(1.7)"
+        }, "-=0.4");
+    }
+});
