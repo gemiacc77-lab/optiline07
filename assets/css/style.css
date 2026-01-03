@@ -6321,43 +6321,41 @@ img.icon, .icon img {
 .secure-badge {
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(138, 43, 226, 0.2);
     display: flex;
+    flex-direction: column; /* التغيير المهم: عمودي بدلاً من أفقي */
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px; /* مسافة بين السطور */
     color: var(--text-gray);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 .secure-badge i {
     color: var(--accent-light);
+    margin-right: 8px;
 }
 
-.package-badge {
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(45deg, var(--accent-purple), var(--accent-light));
-    color: white;
-    padding: 6px 20px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-    z-index: 3;
+/* خط إضافي للمسافة بين الشعارين */
+.secure-badge .separator {
+    display: none; /* إخفاء النقاط الفاصلة */
 }
 
-/* Package-specific colors */
-.core-badge { background: linear-gradient(45deg, #3b82f6, #60a5fa); }
-.nexus-badge { background: linear-gradient(45deg, var(--accent-purple), var(--accent-light)); }
-.matrix-badge { background: linear-gradient(45deg, #ef4444, #f87171); }
+/* طريقة عرض عمودية أنيقة */
+.secure-badge span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
 
+.secure-badge span:last-child {
+    margin-bottom: 0;
+}
 .core-glow .checkout-bg-glow {
     background: radial-gradient(
         ellipse at center,
