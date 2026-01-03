@@ -6598,3 +6598,15 @@ img.icon, .icon img {
         text-shadow: 0 0 6px rgba(138, 43, 226, 0.4); /* توهج أخف للشاشات الصغيرة */
     }
 }
+/* توحيد شكل التوهج الخلفي لجميع الباقات (Core, Nexus, Matrix) */
+.core-glow .checkout-bg-glow,
+.nexus-glow .checkout-bg-glow,
+.matrix-glow .checkout-bg-glow {
+    /* استخدام circle بدلاً من ellipse لمنع الشكل البيضاوي */
+    /* استخدام transparent في النهاية لإزالة الحواف الحادة والظلال الغريبة */
+    background: radial-gradient(
+        circle at center,
+        rgba(138, 43, 226, 0.15) 0%, /* مركز التوهج (بنفسجي خافت) */
+        transparent 70%              /* التلاشي التام */
+    ) !important;
+}
