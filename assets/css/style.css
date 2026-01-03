@@ -6174,16 +6174,17 @@ img.icon, .icon img {
     align-items: center;
     gap: 8px;
     padding: 8px 20px;
-    background: rgba(138, 43, 226, 0.1);
+    background: rgba(138, 43, 226, 0.15);
     border: 1px solid var(--accent-purple);
     border-radius: 50px;
-    color: var(--accent-light);
+    color: #ffffff; /* تم التغيير من البنفسجي إلى الأبيض */
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     text-decoration: none;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
 }
 
 .header-pkg-btn:hover {
@@ -6319,11 +6320,13 @@ img.icon, .icon img {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 900;
-    color: var(--accent-light);
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    color: #ffffff; /* تم التغيير من البنفسجي إلى الأبيض */
+    /* تم الإبقاء على الظل البنفسجي ليعطي تأثير توهج جميل مع الأبيض */
+    text-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 40px rgba(138, 43, 226, 0.3);
     text-align: center;
 }
-
 .secure-badge {
     margin-top: 2rem;
     padding-top: 1.5rem;
