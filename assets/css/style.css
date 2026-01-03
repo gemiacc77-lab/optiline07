@@ -6137,3 +6137,274 @@ img.icon, .icon img {
     z-index: 10;
     clear: both;
 }
+/* ================= UNIFIED CHECKOUT STYLES ================= */
+
+.checkout-header-bar {
+    height: 60px;
+    padding: 0 5%;
+    background: rgba(10, 4, 26, 0.85);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.checkout-header-bar .logo img {
+    height: 22px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.checkout-header-bar .logo:hover img {
+    transform: scale(1.05);
+}
+
+.header-pkg-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid var(--accent-purple);
+    border-radius: 50px;
+    color: var(--accent-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.header-pkg-btn:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+}
+
+.header-pkg-btn i {
+    transition: transform 0.3s ease;
+}
+
+.header-pkg-btn:hover i {
+    transform: translateX(-3px);
+}
+
+.checkout-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.checkout-bg-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(138, 43, 226, 0.1) 0%,
+        rgba(10, 4, 26, 0.5) 70%
+    );
+    z-index: -1;
+}
+
+.checkout-card-unified {
+    background: linear-gradient(145deg, 
+        rgba(18, 8, 47, 0.9) 0%,
+        rgba(10, 4, 26, 0.95) 100%);
+    border: 1px solid rgba(138, 43, 226, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(138, 43, 226, 0.15);
+    position: relative;
+    z-index: 2;
+    animation: cardFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes cardFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+.checkout-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--accent-light), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.checkout-header p {
+    color: var(--text-gray);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.checkout-summary {
+    background: rgba(138, 43, 226, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.1);
+    border-radius: 15px;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.checkout-summary h3 {
+    color: var(--accent-light);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+    text-align: center;
+}
+
+.checkout-summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkout-summary li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.checkout-summary li i {
+    color: var(--accent-light);
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.checkout-summary li strong {
+    color: var(--accent-light);
+    margin-right: 5px;
+}
+
+.checkout-total {
+    display: block;
+    margin-top: 1.5rem;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent-light);
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    text-align: center;
+}
+
+.secure-badge {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.secure-badge i {
+    color: var(--accent-light);
+}
+
+.package-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-light));
+    color: white;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    z-index: 3;
+}
+
+/* Package-specific colors */
+.core-badge { background: linear-gradient(45deg, #3b82f6, #60a5fa); }
+.nexus-badge { background: linear-gradient(45deg, var(--accent-purple), var(--accent-light)); }
+.matrix-badge { background: linear-gradient(45deg, #ef4444, #f87171); }
+
+.core-glow .checkout-bg-glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(59, 130, 246, 0.1) 0%,
+        rgba(10, 4, 26, 0.5) 70%
+    );
+}
+
+.matrix-glow .checkout-bg-glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(239, 68, 68, 0.1) 0%,
+        rgba(10, 4, 26, 0.5) 70%
+    );
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checkout-card-unified {
+        padding: 2rem 1.5rem;
+        max-width: 90%;
+    }
+    
+    .checkout-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .checkout-total {
+        font-size: 2rem;
+    }
+    
+    .header-pkg-btn {
+        padding: 6px 15px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-section {
+        padding: 100px 15px 40px;
+    }
+    
+    .checkout-card-unified {
+        padding: 1.8rem 1.2rem;
+    }
+    
+    .checkout-summary {
+        padding: 1.2rem;
+    }
+}
