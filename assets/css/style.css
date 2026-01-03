@@ -6408,39 +6408,73 @@ img.icon, .icon img {
 }
 /* ================= UPDATED GLOW COLORS FOR ALL PACKAGES ================= */
 
-/* تغيير ألوان التوهج لجميع الباقات إلى اللون البنفسجي المميز */
+/* 1. CORE PACKAGE - بنفسجي فاتح مع توهج أزرق خفيف */
 .core-glow .checkout-bg-glow {
     background: radial-gradient(
         ellipse at center,
-        rgba(138, 43, 226, 0.15) 0%, /* بنفسجي بدلاً من الأزرق */
+        rgba(164, 94, 255, 0.2) 0%, /* var(--accent-light) */
         rgba(10, 4, 26, 0.5) 70%
     );
 }
 
+.core-glow .checkout-card-unified {
+    border-color: rgba(164, 94, 255, 0.4);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(164, 94, 255, 0.25);
+}
+
+.core-glow .checkout-header h1 {
+    background: linear-gradient(90deg, #A45EFF, #8A2BE2);
+}
+
+/* 2. MATRIX PACKAGE - بنفسجي متوسط مع توهج وردي خفيف */
 .matrix-glow .checkout-bg-glow {
     background: radial-gradient(
         ellipse at center,
-        rgba(138, 43, 226, 0.15) 0%, /* بنفسجي بدلاً من الأحمر */
+        rgba(155, 89, 237, 0.2) 0%, /* بنفسجي متوسط */
         rgba(10, 4, 26, 0.5) 70%
     );
 }
 
-/* خاصية النكساس كانت بالفعل بنفسجية، ولكن يمكن تحسينها */
+.matrix-glow .checkout-card-unified {
+    border-color: rgba(155, 89, 237, 0.4);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(155, 89, 237, 0.25);
+}
+
+.matrix-glow .checkout-header h1 {
+    background: linear-gradient(90deg, #9B59ED, #7D3CFF);
+}
+
+/* 3. NEXUS PACKAGE - بنفسجي غامق مع توهج أرجواني قوي */
 .nexus-glow .checkout-bg-glow {
     background: radial-gradient(
         ellipse at center,
-        rgba(138, 43, 226, 0.2) 0%, /* توهج بنفسجي أقوى */
+        rgba(138, 43, 226, 0.25) 0%, /* var(--accent-purple) */
         rgba(10, 4, 26, 0.5) 70%
     );
+}
+
+.nexus-glow .checkout-card-unified {
+    border-color: rgba(138, 43, 226, 0.5);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 50px rgba(138, 43, 226, 0.35);
+}
+
+.nexus-glow .checkout-header h1 {
+    background: linear-gradient(90deg, #8A2BE2, #6A0DAD);
 }
 
 /* ================= UPDATED SECURE PAYMENT ICON COLORS ================= */
 
-/* تغيير لون أيقونات الدفع الأمن إلى البنفسجي المميز */
+/* توهج بنفسجي موحد لأيقونات الأمان */
 .secure-badge {
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(138, 43, 226, 0.3); /* حدود بنفسجية */
+    border-top: 1px solid rgba(138, 43, 226, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6453,70 +6487,41 @@ img.icon, .icon img {
     text-align: center;
 }
 
-/* تغيير لون الأيقونات إلى البنفسجي المميز */
+/* أيقونات الأمان بنفسجية موحدة */
 .secure-badge i {
-    color: var(--accent-purple) !important; /* بنفسجي مميز بدلاً من الأزرق */
+    color: var(--accent-purple) !important;
     margin-right: 8px;
-    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5); /* توهج بنفسجي */
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+    transition: all 0.3s ease;
 }
 
-/* تحسين التأثير عند التحويم */
 .secure-badge:hover i {
     color: var(--accent-light) !important;
-    text-shadow: 0 0 12px rgba(164, 94, 255, 0.7);
+    text-shadow: 
+        0 0 15px rgba(164, 94, 255, 0.8),
+        0 0 25px rgba(138, 43, 226, 0.4);
 }
 
 /* ================= ENHANCED PURPLE GLOW EFFECTS ================= */
 
-/* تحسين توهج البطاقات ليكون أكثر وضوحاً */
-.checkout-card-unified {
-    background: linear-gradient(145deg, 
-        rgba(18, 8, 47, 0.9) 0%,
-        rgba(10, 4, 26, 0.95) 100%);
-    border: 1px solid rgba(138, 43, 226, 0.3); /* حدود بنفسجية أقوى */
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 3rem;
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(138, 43, 226, 0.2); /* توهج بنفسجي أقوى */
-    position: relative;
-    z-index: 2;
-    animation: cardFloat 6s ease-in-out infinite alternate;
-}
-
-/* تحسين توهج العنوان */
-.checkout-header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-light)); /* تدرج بنفسجي */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.3); /* توهج بنفسجي للنص */
-}
-
-/* تحسين توهج السعر */
+/* توهج موحد للأسعار */
 .checkout-total {
     display: block;
     margin-top: 1.5rem;
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 900;
-    color: var(--accent-purple); /* بنفسجي بدلاً من الفاتح */
+    color: var(--accent-purple);
     text-shadow: 
-        0 0 20px rgba(138, 43, 226, 0.6),
-        0 0 40px rgba(138, 43, 226, 0.3); /* توهج بنفسجي مزدوج */
+        0 0 20px rgba(138, 43, 226, 0.7),
+        0 0 40px rgba(138, 43, 226, 0.3);
     text-align: center;
 }
 
 /* تحسين توهج القائمة */
 .checkout-summary {
-    background: rgba(138, 43, 226, 0.08); /* خلفية بنفسجية شفافة */
-    border: 1px solid rgba(138, 43, 226, 0.2); /* حدود بنفسجية */
+    background: rgba(138, 43, 226, 0.08);
+    border: 1px solid rgba(138, 43, 226, 0.25);
     border-radius: 15px;
     padding: 1.8rem;
     margin-bottom: 2rem;
@@ -6524,42 +6529,42 @@ img.icon, .icon img {
 }
 
 .checkout-summary h3 {
-    color: var(--accent-purple); /* بنفسجي بدلاً من الفاتح */
+    color: var(--accent-purple);
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 1.2rem;
     padding-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.3); /* حدود بنفسجية */
+    border-bottom: 1px solid rgba(138, 43, 226, 0.3);
     text-align: center;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
 }
 
 .checkout-summary li i {
-    color: var(--accent-purple) !important; /* بنفسجي للأيقونات */
+    color: var(--accent-purple) !important;
     margin-top: 3px;
     flex-shrink: 0;
-    text-shadow: 0 0 8px rgba(138, 43, 226, 0.4); /* توهج للأيقونات */
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
 }
 
 /* ================= ENHANCED BUTTON GLOW ================= */
 
-/* تحسين توهج زر الرجوع */
 .header-pkg-btn {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px 20px;
-    background: rgba(138, 43, 226, 0.15); /* خلفية بنفسجية */
-    border: 1px solid var(--accent-purple); /* حدود بنفسجية */
+    background: rgba(138, 43, 226, 0.15);
+    border: 1px solid var(--accent-purple);
     border-radius: 50px;
-    color: var(--accent-purple); /* نص بنفسجي */
+    color: var(--accent-purple);
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     text-decoration: none;
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2); /* توهج بنفسجي */
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.25);
 }
 
 .header-pkg-btn:hover {
@@ -6568,27 +6573,21 @@ img.icon, .icon img {
     transform: translateY(-2px);
     box-shadow: 
         0 5px 20px rgba(138, 43, 226, 0.4),
-        0 0 30px rgba(138, 43, 226, 0.2); /* توهج مزدوج عند التحويم */
+        0 0 35px rgba(138, 43, 226, 0.25);
 }
 
 /* ================= RESPONSIVE UPDATES ================= */
 
 @media (max-width: 768px) {
-    .checkout-card-unified {
-        box-shadow: 
-            0 15px 30px rgba(0, 0, 0, 0.3),
-            0 0 30px rgba(138, 43, 226, 0.15); /* توهج أخف للجوال */
-    }
-    
     .checkout-total {
         text-shadow: 
-            0 0 15px rgba(138, 43, 226, 0.5),
-            0 0 30px rgba(138, 43, 226, 0.2); /* توهج أخف للجوال */
+            0 0 15px rgba(138, 43, 226, 0.6),
+            0 0 30px rgba(138, 43, 226, 0.25);
     }
 }
 
 @media (max-width: 480px) {
     .secure-badge i {
-        text-shadow: 0 0 6px rgba(138, 43, 226, 0.4); /* توهج أخف للشاشات الصغيرة */
+        text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
     }
 }
