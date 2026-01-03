@@ -6591,3 +6591,40 @@ img.icon, .icon img {
         text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
     }
 }
+/* =========================================
+   REMOVE COLORED BAR FROM PRICING CARDS
+   ========================================= */
+
+/* إزالة الشريط الملون من بطاقات الباقات في صفحة الدفع */
+.checkout-card-unified::before,
+.checkout-card-refined::before,
+.checkout-card::before {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* إزالة التدرج اللوني من الأعلى */
+.checkout-card-unified,
+.checkout-card-refined,
+.checkout-card {
+    border-top: 1px solid rgba(138, 43, 226, 0.2) !important;
+    border-radius: 20px !important;
+}
+
+/* التأكد من إزالة أي خلفيات تدرجية */
+.checkout-card-unified {
+    background: linear-gradient(145deg, 
+        rgba(18, 8, 47, 0.9) 0%,
+        rgba(10, 4, 26, 0.95) 100%) !important;
+}
+
+/* إزالة أي تأثيرات إضافية */
+.core-glow .checkout-card-unified::before,
+.matrix-glow .checkout-card-unified::before,
+.nexus-glow .checkout-card-unified::before {
+    all: unset !important;
+    display: none !important;
+}
