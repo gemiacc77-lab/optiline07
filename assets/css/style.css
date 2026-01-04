@@ -6613,3 +6613,106 @@ img.icon, .icon img {
         transparent 70%              /* التلاشي التام */
     ) !important;
 }
+/* =========================================
+   FIX MOBILE CHECKOUT RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 480px) {
+    /* 1. إصلاح حاوية الصفحة الرئيسية */
+    .checkout-section {
+        padding: 90px 15px 40px !important; /* تقليل المسافات العلوية والجانبية */
+        align-items: flex-start; /* يسمح بالتمرير إذا كان المحتوى طويلاً */
+        height: auto !important; /* إلغاء الارتفاع الثابت لتجنب القص */
+        min-height: 100vh;
+        overflow-y: auto; /* السماح بالتمرير العمودي */
+    }
+
+    /* 2. تصغير بطاقة الدفع لتناسب الشاشة */
+    .checkout-card-unified {
+        padding: 1.5rem 1rem !important; /* تقليل الحشوة الداخلية بشكل كبير */
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 15px;
+        margin-top: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* تخفيف الظل للموبايل */
+    }
+
+    /* 3. ضبط حجم العناوين */
+    .checkout-header h1 {
+        font-size: 1.6rem !important; /* تصغير العنوان الرئيسي */
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+        word-wrap: break-word; /* منع النص من الخروج */
+    }
+
+    .checkout-header p {
+        font-size: 0.9rem !important;
+        padding: 0 5px;
+    }
+
+    /* 4. تحسين قائمة ملخص الباقة */
+    .checkout-summary {
+        padding: 1rem !important; /* تقليل حشوة الملخص */
+        margin-bottom: 1.5rem;
+    }
+
+    .checkout-summary h3 {
+        font-size: 0.9rem !important;
+        margin-bottom: 1rem;
+    }
+
+    .checkout-summary li {
+        font-size: 0.85rem !important; /* تصغير خط القائمة */
+        gap: 8px;
+        margin-bottom: 0.8rem;
+        align-items: baseline; /* محاذاة النص مع الأيقونة بشكل أفضل */
+    }
+
+    /* 5. ضبط حجم السعر */
+    .checkout-total {
+        font-size: 2rem !important; /* تصغير حجم السعر */
+        margin-top: 1rem;
+    }
+
+    /* 6. إصلاح الهيدر العلوي (الشعار وزر العودة) */
+    .checkout-header-bar {
+        padding: 0 15px !important; /* تقليل حشوة الهيدر */
+        height: 55px;
+    }
+
+    .checkout-header-bar .logo img {
+        width: 110px !important; /* تصغير الشعار قليلاً */
+        height: auto;
+    }
+
+    .header-pkg-btn {
+        padding: 6px 12px !important; /* تصغير زر تغيير الباقة */
+        font-size: 0.7rem !important;
+        white-space: nowrap;
+    }
+    
+    .header-pkg-btn i {
+        display: none; /* إخفاء السهم في الشاشات الصغيرة جداً لتوفير مساحة */
+    }
+
+    /* 7. ضبط زر الباي بال */
+    #paypal-button-core,
+    #paypal-button-matrix,
+    #paypal-button-nexus {
+        margin-top: 15px !important;
+        width: 100% !important;
+        overflow: visible;
+    }
+}
+
+/* إصلاحات للشاشات المتوسطة (Tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .checkout-section {
+        padding-top: 100px;
+    }
+    
+    .checkout-card-unified {
+        padding: 2rem;
+        max-width: 90%;
+    }
+}
